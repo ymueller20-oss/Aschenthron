@@ -22,146 +22,12 @@ html,body{height:100%}
 body{display:flex;flex-direction:column;background:var(--void);color:var(--bone);font-family:var(--f-ui);overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-#nav{box-sizing:border-box;flex:none;display:flex;justify-content:center;gap:6px;padding:6px 16px 0;width:100%;max-width:820px;margin:0 auto;background:#0e0b0a;box-shadow:inset 0 -1px 0 rgba(201,164,90,.15)}
-#nav button{font:800 .78rem/1 var(--f-num);letter-spacing:.14em;text-transform:uppercase;padding:9px 16px 10px;color:var(--bone-2);border-bottom:2px solid transparent}
-#nav button[aria-pressed="true"]{color:var(--gold);border-bottom-color:var(--gold)}
-#app[hidden],#poker[hidden]{display:none!important}
-#app{position:relative;flex:1;min-height:0;width:100%;max-width:820px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);
-  grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr) auto auto;
-  background:
-    radial-gradient(ellipse 70% 40% at 50% 50%, rgba(201,164,90,.07), transparent 70%),
-    repeating-linear-gradient(93deg, rgba(255,255,255,.012) 0 2px, transparent 2px 7px),
-    radial-gradient(ellipse at 50% 50%, #2a221d 0%, #16110f 60%, #0b0908 100%);
-  box-shadow:0 0 60px rgba(0,0,0,.8);overflow:hidden}
+#poker[hidden]{display:none!important}
 
-/* bars */
-.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:8px 16px}
-.info{justify-self:end;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0}
-.who{font-family:var(--f-name);font-size:.95rem;letter-spacing:.03em;color:var(--bone);white-space:nowrap}
-.mana{font:800 .95rem/1 var(--f-num);color:#a9c8f2;display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
-.gem{width:10px;height:10px;transform:rotate(45deg);background:radial-gradient(#d5e6ff,#4b7cc2 60%,#1d3560);box-shadow:0 0 6px rgba(120,170,240,.6)}
-.crys{display:flex;gap:3px}
-.crys i{width:7px;height:7px;transform:rotate(45deg);background:#141c28;box-shadow:inset 0 0 0 1px #33496a}
-.crys i.on{background:radial-gradient(#cfe2ff,#4b7cc2 60%,#1f3a66);box-shadow:0 0 4px rgba(120,170,240,.7)}
-.meta{font-size:.72rem;color:var(--bone-2);letter-spacing:.06em;text-transform:uppercase;font-variant-numeric:tabular-nums}
-.backs{display:flex;padding-left:6px;min-height:20px}
-.backs i{width:14px;height:20px;margin-left:-6px;border-radius:2px;background:radial-gradient(circle at 50% 46%, #7a2c22 0 20%, transparent 22%),linear-gradient(135deg,#2c1f19,#110b09);box-shadow:0 0 0 1px #000, inset 0 0 0 1.5px #5c4733}
-.power-slot{justify-self:start;display:flex;flex-direction:column;align-items:center;gap:3px}
-.plabel{font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--bone-2)}
-
-/* hero */
-.hero{position:relative;width:var(--hero);height:calc(var(--hero)*1.14);display:block}
-.hero-art{position:absolute;inset:0;border-radius:50% 50% 14% 14% / 42% 42% 10% 10%;overflow:hidden;
-  box-shadow:0 0 0 3px #0b0908, 0 0 0 5px var(--gold-dim), 0 0 0 6px #0b0908, 0 8px 18px rgba(0,0,0,.8)}
-.hero-art img{width:100%;height:100%;object-fit:cover;display:block}
-.hp{position:absolute;right:-8px;bottom:-6px;width:30px;height:34px;display:grid;place-items:center;
-  font:800 1.05rem/1 var(--f-num);color:#fff;text-shadow:0 1px 0 #000,0 0 3px #000;
-  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:radial-gradient(circle at 40% 35%,#e46e5c,#8e1d16 55%,#2e0806);
-  box-shadow:0 0 0 2px #120a08, 0 2px 6px rgba(0,0,0,.8);font-variant-numeric:tabular-nums}
-.hp.hurt{color:#ffc9bf}
-.hero::after,.power::after{content:'';position:absolute;inset:-5px;border-radius:50% 50% 16% 16% / 42% 42% 10% 10%;pointer-events:none;transition:box-shadow .2s}
-.power::after{border-radius:50%}
-.hero.tgt::after,.power.armed::after{box-shadow:0 0 0 2px var(--tgt),0 0 18px var(--tgt);animation:throb 1s infinite}
-.power.armed::after{box-shadow:0 0 0 2px var(--ember),0 0 18px var(--ember)}
-
-/* hero power */
-.power{position:relative;width:calc(var(--hero)*.66);height:calc(var(--hero)*.66);border-radius:50%;display:block}
-.power .pa{position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px #0b0908,0 0 0 4px var(--gold-dim),0 4px 10px rgba(0,0,0,.8)}
-.power img{width:100%;height:100%;object-fit:cover;display:block}
-.power .pc{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;display:grid;place-items:center;
-  font:800 .8rem/1 var(--f-num);color:#fff;background:radial-gradient(#7fa6dd,#2a4a80 60%,#0c1830);box-shadow:0 0 0 1.5px #0b0908}
-.power.used .pa{filter:grayscale(1) brightness(.45)}
-.power.can .pa{box-shadow:0 0 0 2px #0b0908,0 0 0 4px var(--ready),0 0 14px rgba(169,212,107,.5)}
-
-/* boards */
-.board{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;min-height:calc(var(--mw)*1.34 + 22px)}
-.board.e{background:linear-gradient(180deg,transparent,rgba(0,0,0,.18))}
-.board.p{background:linear-gradient(0deg,transparent,rgba(0,0,0,.18))}
-.mid{display:flex;align-items:center;gap:10px;padding:0 16px;height:42px;position:relative}
-.mid::before{content:'';position:absolute;left:16px;right:16px;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,164,90,.35) 20%,rgba(201,164,90,.35) 80%,transparent)}
-#log{position:relative;flex:0 1 auto;min-width:0;margin-right:auto;font-family:var(--f-flav);font-style:italic;font-size:.88rem;color:var(--bone-2);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--table);padding:3px 8px;justify-self:start;max-width:max-content;border-radius:3px}
-#log.hint{color:var(--ember);font-style:normal;font-family:var(--f-ui);font-weight:700}
+/* geteilte Bausteine */
 .chip{position:relative;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:3px;background:#2a221d;color:var(--bone);box-shadow:inset 0 0 0 1px #5c4a36}
-#endturn{position:relative;flex:none;font:800 .8rem/1 var(--f-num);letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border-radius:4px;
-  color:#ffe1b8;background:linear-gradient(#6a3a1c,#3a1d0d);box-shadow:inset 0 1px 0 rgba(255,220,170,.25),0 0 0 1px #0b0908,0 0 0 2px #8a5a2a,0 4px 10px rgba(0,0,0,.6)}
-#endturn.done{background:linear-gradient(#5d7a2c,#2f4414);color:#eaffc8;box-shadow:inset 0 1px 0 rgba(230,255,190,.25),0 0 0 1px #0b0908,0 0 0 2px #8db04a,0 0 16px rgba(169,212,107,.45);animation:throb 1.6s infinite}
-#endturn:disabled{background:linear-gradient(#2a2420,#1a1512);color:var(--bone-2);box-shadow:0 0 0 1px #0b0908,0 0 0 2px #3b322b;cursor:default}
-
-/* minion on board */
-.mn{position:relative;width:var(--mw);height:calc(var(--mw)*1.34);font-size:calc(var(--mw)/5.2);flex:none;transition:transform .18s}
-.mn-taunt{position:absolute;inset:-11% -15% -6%;clip-path:polygon(50% 0,100% 9%,97% 62%,50% 100%,3% 62%,0 9%);
-  background:linear-gradient(170deg,#857155,#3a2f24 45%,#16120e)}
-.mn-body{position:absolute;inset:0;border-radius:48% 48% 10% 10% / 32% 32% 8% 8%;overflow:hidden;background:#000;
-  box-shadow:0 0 0 .14em #0b0908,0 0 0 .32em #5c4a36,0 .5em 1em rgba(0,0,0,.75)}
-.mn-body img{width:100%;height:100%;object-fit:cover;display:block}
-.mn::after{content:'';position:absolute;inset:-.45em;border-radius:48% 48% 14% 14% / 32% 32% 10% 10%;pointer-events:none;transition:box-shadow .2s}
-.mn.ready::after{box-shadow:0 0 0 .18em var(--ready),0 0 1em rgba(169,212,107,.6)}
-.mn.sel{transform:translateY(-8px) scale(1.06)}
-.mn.sel::after{box-shadow:0 0 0 .22em #fff3c4,0 0 1.4em rgba(255,230,150,.9)}
-.mn.tgt::after{box-shadow:0 0 0 .2em var(--tgt),0 0 1.2em var(--tgt);animation:throb 1s infinite}
-.mn.shield .mn-body{box-shadow:0 0 0 .14em #0b0908,0 0 0 .32em #c9a45a,0 0 1.1em rgba(255,222,150,.75)}
-.mn.shield .mn-body::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse at 50% 30%,rgba(255,236,190,.28),transparent 70%);box-shadow:inset 0 0 .9em .25em rgba(255,226,150,.8)}
-.mn-atk,.mn-hp{position:absolute;bottom:-.55em;width:1.75em;height:1.75em;display:grid;place-items:center;font:800 1.15em/1 var(--f-num);color:#fff;
-  text-shadow:0 1px 0 #000,0 0 3px #000;font-variant-numeric:tabular-nums;z-index:2}
-.mn-atk{left:-.45em;border-radius:50%;background:radial-gradient(circle at 40% 35%,#f0aa5c,#9c4a18 55%,#3a1408);box-shadow:0 0 0 .12em #120a08}
-.mn-hp{right:-.45em;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:radial-gradient(circle at 40% 35%,#e46e5c,#8e1d16 55%,#2e0806);box-shadow:0 0 0 .12em #120a08}
 .up{color:#c8f59a!important}
 .down{color:#ffb3a6!important}
-.mn-marks{position:absolute;left:0;right:0;bottom:1.1em;display:flex;justify-content:center;gap:.25em}
-.mk{width:.75em;height:.75em;border-radius:50%;box-shadow:0 0 0 .1em #000}
-.mk.poison{background:radial-gradient(#c8f07a,#3d6a14)}
-.mk.life{background:radial-gradient(#ff9a8a,#8e1d16)}
-.mk.dr{background:radial-gradient(#e9dfc6,#6b604c);border-radius:40% 40% 30% 30%}
-.zz{position:absolute;top:.2em;right:.3em;font:italic 1.1em/1 var(--f-flav);color:#d8ccb4;text-shadow:0 0 4px #000;z-index:2}
-.mn.enter{animation:enter .45s cubic-bezier(.2,.9,.3,1.2)}
-.empty{font-family:var(--f-flav);font-style:italic;color:rgba(169,155,131,.38);font-size:.9rem;text-align:center}
-
-/* hand */
-#hand{position:relative;height:calc(var(--hw)*1.4 + 14px);margin:0 16px}
-.hc{position:absolute;bottom:6px;transform-origin:50% 130%;transition:left .25s, transform .2s}
-.hc.lift{transform:translateY(-14px)!important;z-index:20}
-.hc.playable .card{--glow:0 0 0 .14em var(--ready),0 0 .9em rgba(169,212,107,.6)}
-
-/* card */
-.card{position:relative;width:var(--w);height:calc(var(--w)*1.4);font-size:calc(var(--w)/10);border-radius:.55em;overflow:hidden;color:var(--bone);
-  background:
-    radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.06),transparent 60%),
-    linear-gradient(165deg,color-mix(in srgb,var(--tint) 45%,#17120f) 0%,#0f0c0a 55%,color-mix(in srgb,var(--tint) 30%,#0e0b09) 100%);
-  box-shadow:0 0 0 .08em #000,inset 0 0 0 .14em color-mix(in srgb,var(--tint) 60%,#3a3229),inset 0 0 1.4em rgba(0,0,0,.85),0 .4em 1.1em rgba(0,0,0,.65),var(--glow,0 0 0 transparent)}
-.card::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.35;
-  background:repeating-radial-gradient(circle at 20% 30%,rgba(255,255,255,.03) 0 1px,transparent 1px 3px),repeating-linear-gradient(37deg,rgba(0,0,0,.18) 0 1px,transparent 1px 4px)}
-.c-cost{position:absolute;left:.18em;top:.18em;width:2.15em;height:2.15em;border-radius:50%;display:grid;place-items:center;z-index:3;
-  background:radial-gradient(circle at 38% 32%,#a9c7f0,#3a62a0 45%,#0c1830 100%);box-shadow:0 0 0 .1em #0b0908,0 0 0 .2em var(--gold-dim),0 .15em .4em rgba(0,0,0,.8)}
-.c-cost span{font:800 1.4em/1 var(--f-num);color:#fff;text-shadow:0 .05em 0 #000,0 0 .2em #000}
-.c-name{position:absolute;left:1.6em;right:.45em;top:.48em;height:1.35em;border-radius:.2em;padding-left:.75em;display:flex;align-items:center;z-index:2;
-  background:linear-gradient(#433a30,#1e1915);box-shadow:inset 0 .06em 0 rgba(255,255,255,.14),inset 0 -.06em 0 #000,0 .06em .15em #000}
-.c-name span{font-family:var(--f-name);font-size:.78em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em;text-shadow:0 .06em 0 #000}
-.legend .c-name{box-shadow:inset 0 0 0 .07em var(--gold),inset 0 .06em 0 rgba(255,255,255,.2),0 0 .5em rgba(201,164,90,.4)}
-.c-art{position:absolute;left:.55em;right:.55em;top:2.05em;height:5.6em;background:#000;box-shadow:0 0 0 .1em #000,0 0 0 .16em color-mix(in srgb,var(--tint) 40%,#4a3f33);border-radius:.08em;overflow:hidden}
-.c-art img{width:100%;height:100%;object-fit:cover;display:block}
-.c-type{position:absolute;left:.45em;right:.45em;top:7.8em;height:1.1em;border-radius:.15em;display:flex;align-items:center;padding-left:.6em;
-  background:linear-gradient(#3a322a,#1a1612);box-shadow:inset 0 .05em 0 rgba(255,255,255,.1),0 .05em .12em #000}
-.c-type span{font-size:.5em;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-2);font-weight:700}
-.c-text{position:absolute;left:.6em;right:.6em;top:9.05em;bottom:.6em;border-radius:.15em;display:flex;align-items:center;justify-content:center;text-align:center;padding:.3em 1.2em .3em;
-  background:linear-gradient(175deg,#ddd2b8,#c2b596 70%,#a99b7c);color:var(--ink);box-shadow:inset 0 0 .6em rgba(80,60,30,.5),0 0 0 .07em #000}
-.spell .c-text{padding-inline:.6em}
-.c-text p{font-size:.62em;line-height:1.28;margin:0}
-.c-text b{font-weight:800}
-.c-text .flav{font-family:var(--f-flav);font-style:italic;font-size:.55em;color:#54473a;margin-top:.45em}
-.c-atk,.c-hp{position:absolute;bottom:.08em;width:2.05em;height:2.05em;display:grid;place-items:center;z-index:3}
-.c-atk{left:.08em;border-radius:50%;background:radial-gradient(circle at 40% 35%,#f0aa5c,#9c4a18 55%,#3a1408);box-shadow:0 0 0 .1em #0b0908,0 0 0 .18em var(--gold-dim)}
-.c-hp{right:.08em;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:radial-gradient(circle at 40% 35%,#e46e5c,#8e1d16 55%,#2e0806);box-shadow:0 0 0 .1em #0b0908,0 0 0 .18em var(--gold-dim)}
-.c-atk span,.c-hp span{font:800 1.3em/1 var(--f-num);color:#fff;text-shadow:0 .05em 0 #000,0 0 .2em #000}
-.mini .c-type,.mini .c-text{display:none}
-.mini .c-art{height:auto;bottom:.55em}
-.mini .c-name{left:.35em;right:.35em;top:auto;bottom:2.35em;height:1.7em;padding:0 .3em;justify-content:center}
-.mini .c-name span{font-size:1.02em}
-.mini .c-cost{width:2.6em;height:2.6em}
-.mini .c-cost span{font-size:1.6em}
-.mini .c-atk,.mini .c-hp{width:2.4em;height:2.4em}
-.mini .c-atk span,.mini .c-hp span{font-size:1.5em}
-
 /* overlays */
 #ov{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;background:rgba(5,4,3,.78);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .pv{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:340px;width:100%;animation:rise .25s ease-out}
@@ -176,9 +42,6 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .end h2{font:400 clamp(2.6rem,12vw,4.2rem)/1 var(--f-name);margin:0;color:var(--gold);text-shadow:0 0 30px rgba(201,164,90,.4);text-wrap:balance}
 .end.lose h2{color:#c94a3a;text-shadow:0 0 30px rgba(201,74,58,.4)}
 .end p{margin:0;font-family:var(--f-flav);font-style:italic;font-size:1.05rem;color:var(--bone-2);max-width:30ch}
-#cast{position:fixed;inset:0;z-index:40;display:grid;place-items:center;pointer-events:none}
-#cast .who2{font-family:var(--f-name);font-size:1rem;color:var(--bone-2);text-align:center;margin-bottom:10px}
-#cast .inner{animation:castin 1.1s ease forwards}
 #banner{position:fixed;inset:0;z-index:45;display:grid;place-items:center;pointer-events:none}
 #banner span{font:400 clamp(2.2rem,10vw,3.4rem)/1 var(--f-name);color:var(--gold);padding:14px 34px;background:radial-gradient(ellipse,rgba(10,8,7,.92),rgba(10,8,7,0) 75%);
   text-shadow:0 0 24px rgba(201,164,90,.55);animation:banner 1.3s ease forwards}
@@ -209,6 +72,12 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .gold{font:800 .9rem/1 var(--f-num);color:var(--gold);font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;gap:4px}
 .gold::before{content:'';width:.7em;height:.7em;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f6dc92,#a77c2c 60%,#4a3410);box-shadow:0 0 0 1px #2a1d0a}
 .sw .gold{font-size:.78rem}
+.tell{font-size:.62rem;opacity:.75;font-style:italic;white-space:nowrap}
+.skp{margin:10px 0;padding:10px 12px;border:1px solid rgba(200,160,70,.4);border-radius:10px;background:rgba(0,0,0,.22);text-align:left}
+.skp-r{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-family:var(--f-name)}
+.skp .pos{color:#8ed06a}.skp .neg{color:#e0707a}.skp i{font-style:normal;margin-left:4px}
+.intro{text-align:center}.intro .av-l{width:120px;height:120px;border-radius:50%;margin:6px auto;overflow:hidden;box-shadow:0 0 0 3px #b8892c,0 0 30px rgba(0,0,0,.6)}.intro .av-l img{width:100%;height:100%;object-fit:cover}
+.intro h2{margin:.2em 0}.intro .rules{text-align:left;margin:10px 0;padding-left:1.1em;font-size:.88rem;line-height:1.45}.intro .rules li{margin:.35em 0}
 .srow{display:flex;gap:3px;align-items:center;min-height:31px;min-width:0}
 .srow{flex-wrap:wrap}
 .srow .sact{flex:1 1 64px;min-width:0;padding-left:3px}
@@ -315,9 +184,6 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
   radial-gradient(ellipse 90% 60% at 50% 38%, rgba(255,248,226,.85), transparent 70%),
   repeating-linear-gradient(90deg, rgba(120,90,50,.05) 0 2px, transparent 2px 11px),
   linear-gradient(180deg,#e8d9b6 0%,#d9c497 55%,#b89b68 100%)!important;color:#2a1f14}
-#nav{background:#efe3c6;box-shadow:inset 0 -1px 0 rgba(120,90,40,.3)}
-#nav button{color:#7a6446}
-#nav button[aria-pressed="true"]{color:#8a5a12;border-bottom-color:#b07a1e}
 .pk-top{color:#5a4630}
 .pk-top .chip{background:#f6ecd2;color:#3a2a18;box-shadow:inset 0 0 0 1px #b8975c}
 .seat{background:rgba(36,26,18,.86);box-shadow:0 2px 8px rgba(80,50,20,.25),inset 0 0 0 1px rgba(201,164,90,.25);color:var(--bone)}
@@ -611,38 +477,17 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 @keyframes rise{from{transform:translateY(16px);opacity:0}}
 @keyframes castin{0%{transform:scale(.6) translateY(30px);opacity:0}18%{transform:none;opacity:1}82%{transform:none;opacity:1}100%{transform:scale(.9) translateY(-20px);opacity:0}}
 @keyframes banner{0%{opacity:0;transform:scale(.85)}20%,75%{opacity:1;transform:none}100%{opacity:0;transform:scale(1.05)}}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition:none!important}#cast .inner{animation:none}#banner span{animation:none;opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition:none!important}#banner span{animation:none;opacity:0}}
 @media (min-width:600px){.bar{padding:12px 24px}.who{font-size:1.05rem}#log{font-size:.95rem}}
 </style>
 
-<nav id="nav" aria-label="Spielmodus">
-  <button type="button" data-mode="duel" aria-pressed="true">Duell</button>
-  <button type="button" data-mode="poker" aria-pressed="false">Rabenblatt</button>
-</nav>
-<div id="poker" hidden>
+<div id="poker">
   <div class="pk-top" id="pk-top"></div>
   <div class="pk-seats" id="pk-seats"></div>
   <div class="pk-table"><div class="pk-pot" id="pk-pot"></div><div class="pk-board" id="pk-board"></div><div class="pk-log" id="pk-log"></div><div class="pk-legend" id="pk-legend" aria-label="Fähigkeiten auf dem Tisch"></div></div>
   <div class="pk-me" id="pk-me"></div>
   <div class="pk-ctrl" id="pk-ctrl"></div>
 </div>
-<div id="app">
-  <section class="bar" id="bar-e">
-    <div class="info" id="info-e"></div>
-    <div id="hero-e"></div>
-    <div class="power-slot" id="power-e"></div>
-  </section>
-  <section class="board e" id="board-e"></section>
-  <div class="mid"><div id="log"></div><span id="cancel"></span><button id="endturn" type="button">Zug beenden</button></div>
-  <section class="board p" id="board-p"></section>
-  <section class="bar" id="bar-p">
-    <div class="info" id="info-p"></div>
-    <div id="hero-p"></div>
-    <div class="power-slot" id="power-p"></div>
-  </section>
-  <section id="hand" aria-label="Deine Hand"></section>
-</div>
-<div id="cast" hidden></div>
 <div id="banner" hidden></div>
 <div id="ov" hidden></div>
 <div id="fx"></div>
@@ -657,59 +502,6 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const sleep=ms=>new Promise(r=>setTimeout(r,RM?ms*.3:ms));
 
 /* ---------- Karten ---------- */
-const SC={asche:'#a35a22',schatten:'#5d4a80',blut:'#8f2b25',knochen:'#8f8470',moor:'#4f6e3a'};
-let DTEX=null;function dtex(k){if(!DTEX){const mk=(a,b,c,sd)=>frameTex(a,b,c,sd);DTEX={asche:mk('#9a3a1c','#d8743e','#4a1006',5),schatten:mk('#3a2c4e','#6e5a8e','#120a1c',6),blut:mk('#2a1a1c','#5a3436','#070304',7),knochen:mk('#c9b37a','#f6ebc0','#806432',8),moor:mk('#3d5a2c','#7a9a52','#14220c',9)}}return DTEX[k]}
-const KW={taunt:'Wächter',charge:'Ansturm',shield:'Schleier',poison:'Gift',life:'Lebensentzug'};
-const KWINFO={
-  'Wächter':'Feinde müssen zuerst Diener mit Wächter angreifen.',
-  'Ansturm':'Kann sofort in dem Zug angreifen, in dem er ausgespielt wird.',
-  'Schleier':'Der erste Schaden, den dieser Diener erleidet, wird verhindert.',
-  'Gift':'Vernichtet jeden Diener, dem er Schaden zufügt.',
-  'Lebensentzug':'Schaden, den er verursacht, heilt auch deinen Helden.',
-  'Ruf':'Wirkt, sobald du die Karte aus der Hand ausspielst.',
-  'Vermächtnis':'Wirkt, sobald der Diener stirbt.'
-};
-const C={
- ratte:{n:'Aschenratte',c:1,a:1,h:2,tr:'Bestie',sc:'asche',fl:'Sie fressen, was das Feuer übrig ließ.',art:{hue:22,l:[.75,.3],back:['fireSky'],front:['swarm']}},
- kerze:{n:'Kerzenträgerin',c:1,a:2,h:1,tr:'Mensch',sc:'asche',bc:{fx:'randEnemy',n:1},tx:'<b>Ruf:</b> Verursacht 1 Schaden an einem zufälligen Feind.',art:{hue:30,l:[.5,.55],front:['figure','candle'],eyes:'#ffcf80'}},
- knecht:{n:'Knochenknecht',c:1,a:1,h:1,tr:'Untoter',sc:'knochen',tok:1,fl:'Er dient. Mehr weiß er nicht mehr.',art:{hue:200,l:[.3,.3],back:['moon'],front:['skull'],seyes:'#8fd0ff'}},
- ghul:{n:'Ghul',c:2,a:2,h:2,tr:'Untoter',sc:'moor',tok:1,art:{hue:95,l:[.5,.3],front:['figure','mist'],eyes:'#b8f070',wide:1.2}},
- hexe:{n:'Moorhexe',c:2,a:2,h:2,tr:'Mensch',sc:'moor',bc:{fx:'buffRandFriend',a:1,h:1},tx:'<b>Ruf:</b> Gib einem zufälligen anderen befreundeten Diener +1/+1.',art:{hue:110,l:[.68,.28],back:['moon'],front:['tree','figure','mist'],fx:.62,eyes:'#c8f07a'}},
- eisen:{n:'Eisenwache',c:2,a:1,h:4,tr:'Mensch',sc:'knochen',kw:['taunt'],fl:'Das Tor fällt erst, wenn sie fällt.',art:{hue:210,l:[.5,.4],front:['arch','blade']}},
- wolf:{n:'Gruftwolf',c:2,a:3,h:2,tr:'Bestie',sc:'schatten',fl:'Man hört ihn nie. Man sieht nur die Augen.',art:{hue:225,l:[.25,.25],back:['moon'],front:['tree','eyes'],tx:.78,eyeCol:'#e8d070',eyeN:3}},
- egel:{n:'Blutegelpriester',c:2,a:2,h:3,tr:'Mensch',sc:'blut',kw:['life'],fl:'Jeder Tropfen ist ein Gebet.',art:{hue:355,l:[.5,.3],front:['figure','drops'],eyes:'#ff5040'}},
- pest:{n:'Pestbote',c:2,a:1,h:3,tr:'Untoter',sc:'moor',kw:['poison'],fl:'Er bringt keine Nachricht. Er ist die Nachricht.',art:{hue:85,l:[.4,.35],front:['figure','mist','mist'],eyes:'#9fe050',fx:.45}},
- kraehe:{n:'Galgenkrähe',c:3,a:3,h:2,tr:'Bestie',sc:'schatten',kw:['charge'],fl:'Sie kommt immer zuerst.',art:{hue:265,l:[.6,.28],back:['moon','crows'],front:['tree'],tx:.3}},
- schleier:{n:'Schleierritter',c:3,a:3,h:2,tr:'Mensch',sc:'knochen',kw:['shield'],fl:'Ein Eid, gewoben aus dem Atem der Toten.',art:{hue:45,l:[.5,.25],front:['figure','halo'],wide:1.2,eyes:'#fff0c0'}},
- sammler:{n:'Leichensammler',c:3,a:2,h:3,tr:'Untoter',sc:'knochen',dr:{fx:'summon',tok:'knecht',k:2},tx:'<b>Vermächtnis:</b> Beschwört zwei 1/1 Knochenknechte.',art:{hue:38,l:[.5,.6],front:['arch','figure'],eyes:'#ffd27a'}},
- grab:{n:'Grabwächter',c:4,a:3,h:6,tr:'Konstrukt',sc:'knochen',kw:['taunt'],fl:'Aus Grabsteinen gehauen, von Gebeten zusammengehalten.',art:{hue:200,l:[.3,.25],back:['moon'],front:['giant'],eyes:'#9fd8ff'}},
- haendler:{n:'Seelenhändler',c:4,a:4,h:4,tr:'Mensch',sc:'schatten',bc:{fx:'draw',n:1},tx:'<b>Ruf:</b> Ziehe eine Karte.',art:{hue:285,l:[.5,.5],front:['figure','orb'],eyes:'#e0b0ff'}},
- seherin:{n:'Mondbleiche Seherin',c:4,a:3,h:5,tr:'Mensch',sc:'schatten',bc:{fx:'heal',n:4},tx:'<b>Ruf:</b> Stellt bei deinem Helden 4 Leben wieder her.',art:{hue:215,l:[.5,.22],back:['moon'],front:['figure','mist'],eyes:'#ffffff'}},
- reiter:{n:'Schattenreiter',c:5,a:5,h:3,tr:'Untoter',sc:'schatten',kw:['charge'],fl:'Wo er reitet, verstummen die Glocken.',art:{hue:270,l:[.5,.35],front:['wings','figure'],eyes:'#c090ff'}},
- gargyl:{n:'Turmgargyl',c:5,a:4,h:5,tr:'Konstrukt',sc:'knochen',kw:['taunt','shield'],fl:'Tagsüber Stein. Nachts Wächter.',art:{hue:230,l:[.3,.25],back:['moon'],front:['tower','wings'],fx:.5,tx:.72}},
- koloss:{n:'Moorkoloss',c:6,a:6,h:7,tr:'Elementar',sc:'moor',fl:'Der Sumpf stand auf und ging.',art:{hue:95,l:[.5,.3],front:['giant','mist','mist'],eyes:'#c8f07a'}},
- sense:{n:'Aschensensenmann',c:6,a:5,h:5,tr:'Untoter',sc:'asche',bc:{fx:'aoe',n:2,scope:'other'},tx:'<b>Ruf:</b> Verursacht 2 Schaden an allen anderen Dienern.',art:{hue:18,l:[.5,.6],back:['fireSky'],front:['figure','scythe','embers'],eyes:'#ff9a40'}},
- koenig:{n:'Der Ertrunkene König',c:7,a:6,h:6,tr:'Untoter',sc:'moor',lg:1,dr:{fx:'aoe',n:3,scope:'enemies'},tx:'<b>Vermächtnis:</b> Verursacht 3 Schaden an allen Feinden.',art:{hue:175,l:[.5,.2],front:['giant','crown','mist'],eyes:'#7ff0e0'}},
- wyrm:{n:'Zwielichtwyrm',c:8,a:7,h:8,tr:'Drache',sc:'schatten',lg:1,kw:['taunt','life'],fl:'Er frisst die letzte Stunde jedes Tages.',art:{hue:285,l:[.25,.25],back:['moon'],front:['wings','serpent'],fx:.55,eyes:'#ff9ae0'}},
- funke:{n:'Glutfunke',c:1,tg:'any',fx:{fx:'dmg',n:2},sc:'asche',tx:'Verursacht 2 Schaden.',fl:'Klein genug für eine Hand. Groß genug für ein Grab.',art:{hue:20,l:[.5,.6],front:['flame','embers'],noRidge:1}},
- segen:{n:'Grabsegen',c:1,tg:'friendly',fx:{fx:'buff',a:2,h:2},sc:'knochen',tx:'Gib einem befreundeten Diener +2/+2.',art:{hue:45,l:[.5,.35],front:['skull','halo'],ss:.26,sy:.5}},
- pfeil:{n:'Fluchpfeil',c:2,tg:'minion',fx:{fx:'dmg',n:4},sc:'schatten',tx:'Verursacht 4 Schaden an einem Diener.',art:{hue:275,l:[.5,.2],front:['bolt','embers']}},
- opfer:{n:'Blutopfer',c:1,fx:{fx:'pact',n:3,d:2},sc:'blut',tx:'Ziehe 2 Karten. Dein Held erleidet 3 Schaden.',art:{hue:355,l:[.5,.5],front:['blade','drops']}},
- tau:{n:'Mondtau',c:2,fx:{fx:'heal',n:6},sc:'moor',tx:'Stellt bei deinem Helden 6 Leben wieder her.',art:{hue:190,l:[.5,.25],back:['moon'],front:['mist','orb']}},
- ruf:{n:'Totenruf',c:3,fx:{fx:'summon',tok:'ghul',k:2},sc:'knochen',tx:'Beschwört zwei 2/2 Ghule.',art:{hue:120,l:[.5,.5],front:['arch','eyes'],eyeCol:'#b8f070',eyeN:4}},
- sturm:{n:'Aschesturm',c:4,fx:{fx:'aoe',n:2,scope:'enemyMinions'},sc:'asche',tx:'Verursacht 2 Schaden an allen feindlichen Dienern.',art:{hue:20,l:[.4,.5],back:['fireSky'],front:['tower','embers','embers'],tx:.3}},
- ernte:{n:'Seelenernte',c:4,tg:'any',fx:{fx:'drain',n:4},sc:'blut',tx:'Verursacht 4 Schaden. Stellt bei deinem Helden 4 Leben wieder her.',art:{hue:335,l:[.5,.45],front:['orb','skull'],ss:.22,sy:.62}},
- verdamm:{n:'Verdammnis',c:5,tg:'minion',fx:{fx:'destroy'},sc:'schatten',tx:'Vernichtet einen Diener.',fl:'Kein Name. Kein Grab. Kein Nachhall.',art:{hue:270,l:[.6,.2],front:['tower','bolt'],tx:.3}},
- brand:{n:'Weltenbrand',c:6,fx:{fx:'aoe',n:4,scope:'allMinions'},sc:'asche',tx:'Verursacht 4 Schaden an allen Dienern.',art:{hue:15,l:[.5,.6],back:['fireSky'],front:['tower','flame','embers'],tx:.5}},
- muenze:{n:'Grabmünze',c:0,fx:{fx:'mana'},sc:'knochen',tok:1,tx:'Erhalte in diesem Zug 1 Manakristall.',fl:'Für den Fährmann. Oder für dich.',art:{hue:40,l:[.5,.4],front:['coin'],noRidge:1}}
-};
-const isM=c=>c.a!==undefined;
-const DECK=Object.keys(C).filter(k=>!C[k].tok).concat(['kerze']);
-const HEROES={
-  p:{name:'Die Aschenwitwe',short:'Aschenwitwe',power:'Glutstich',ptx:'Verursacht 1 Schaden.',art:{hue:22,l:[.5,.3],back:['fireSky'],front:['figure','embers'],eyes:'#ffb04a',fs:1.25}},
-  e:{name:'Der Hohle König',short:'Hohler König',power:'Knochenruf',ptx:'Beschwört einen 1/1 Knochenknecht.',art:{hue:195,l:[.5,.2],back:['moon'],front:['giant','crown'],eyes:'#7fe8ff'}}
-};
-
 /* ---------- Kartenmalerei ---------- */
 function rng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function hashStr(s){let h=2166136261;for(const ch of s){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
@@ -799,229 +591,16 @@ function paint(key,art,W,H){
   g=x.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.75);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.72)');x.fillStyle=g;x.fillRect(0,0,W,H);
   return cv.toDataURL('image/jpeg',.86);
 }
-const ART={};for(const k in C)ART[k]=paint(k,C[k].art,240,210);
-const HART={p:paint('hp',HEROES.p.art,200,220),e:paint('he',HEROES.e.art,200,220)};
-const PART={p:paint('pp',{hue:22,l:[.5,.6],front:['flame','embers'],noRidge:1},120,120),e:paint('pe',{hue:195,l:[.5,.3],front:['skull'],seyes:'#8fd0ff',ss:.36,sy:.55,noRidge:1},120,120)};
 
-/* ---------- Spielzustand ---------- */
-let S,busy=false,sel=null,TG=new Set(),HW=76;const NEW=new Set();let FXQ=[],GHOSTS=[];
-const opp=s=>s==='p'?'e':'p';
+/* ---------- Gemeinsames ---------- */
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function mkSide(){return{hp:30,max:30,mana:0,maxMana:0,deck:shuffle([...DECK]),hand:[],board:[],fatigue:0,power:false}}
-function log(t){S.log=t}
-function ent(ref){const[s,u]=ref.split(':');if(u==='H')return S[s];return S[s].board.find(m=>m.uid==u)}
-const isHero=ref=>ref.endsWith(':H');
-function rectOf(ref){const el=document.querySelector(`[data-ref="${ref}"]`);return el?el.getBoundingClientRect():null}
-function fx(ref,text,kind){FXQ.push({ref,text,kind,rect:rectOf(ref)})}
-
-function draw(side,n){const T=S[side];for(let i=0;i<n;i++){
-  if(!T.deck.length){T.fatigue++;damage(side+':H',T.fatigue,null);log(`${HEROES[side].short}: Stapel leer, ${T.fatigue} Erschöpfungsschaden.`);continue}
-  const id=T.deck.pop();if(T.hand.length>=10){log(`${C[id].n} verbrennt – die Hand ist voll.`);continue}
-  T.hand.push({iid:S.uid++,id})}}
-function summon(side,id){const T=S[side];if(T.board.length>=7)return null;const c=C[id],k=c.kw||[];
-  const m={uid:S.uid++,id,atk:c.a,hp:c.h,max:c.h,taunt:k.includes('taunt'),charge:k.includes('charge'),shield:k.includes('shield'),poison:k.includes('poison'),life:k.includes('life'),sick:true,att:1};
-  T.board.push(m);NEW.add(m.uid);return m}
-function damage(ref,n,src){if(n<=0)return 0;const e=ent(ref);if(!e)return 0;
-  if(!isHero(ref)&&e.shield){e.shield=false;fx(ref,'Schleier','shield');return 0}
-  e.hp-=n;fx(ref,'−'+n,'dmg');
-  if(!isHero(ref)&&src&&src.poison)e.dead=true;
-  if(src&&src.life)heal(src.side+':H',n);
-  return n}
-function heal(ref,n){const e=ent(ref);if(!e)return;const before=e.hp;e.hp=Math.min(e.max,e.hp+n);if(e.hp>before)fx(ref,'+'+(e.hp-before),'heal')}
-function canAttack(side,m){return S.turn===side&&m.att>0&&m.atk>0&&(!m.sick||m.charge)}
-function attackTargets(aRef){const o=opp(aRef[0]),taunts=S[o].board.filter(m=>m.taunt);
-  if(taunts.length)return taunts.map(m=>o+':'+m.uid);return[o+':H',...S[o].board.map(m=>o+':'+m.uid)]}
-function validTargets(side,spec){const o=opp(side),mins=s=>S[s].board.map(m=>s+':'+m.uid);
-  switch(spec){case'any':return['p:H','e:H',...mins('p'),...mins('e')];case'minion':return[...mins('p'),...mins('e')];case'friendly':return mins(side);case'enemyMinion':return mins(o)}return[]}
-
-function runFx(f,side,target,srcM){const o=opp(side),src={side,life:srcM?srcM.life:false,poison:false};
-  const pick=a=>a[Math.random()*a.length|0];
-  switch(f.fx){
-    case'dmg':damage(target,f.n,src);break;
-    case'randEnemy':damage(pick([o+':H',...S[o].board.map(m=>o+':'+m.uid)]),f.n,src);break;
-    case'buffRandFriend':{const pool=S[side].board.filter(m=>m!==srcM);if(pool.length){const m=pick(pool);m.atk+=f.a;m.hp+=f.h;m.max+=f.h;fx(side+':'+m.uid,`+${f.a}/+${f.h}`,'buff')}break}
-    case'draw':draw(side,f.n);break;
-    case'heal':heal(side+':H',f.n);break;
-    case'summon':for(let i=0;i<f.k;i++)summon(side,f.tok);break;
-    case'aoe':{let refs=[];const mins=s=>S[s].board.map(m=>s+':'+m.uid);
-      if(f.scope==='enemyMinions')refs=mins(o);else if(f.scope==='allMinions')refs=[...mins('p'),...mins('e')];
-      else if(f.scope==='other')refs=[...mins('p'),...mins('e')].filter(r=>!srcM||r!==side+':'+srcM.uid);
-      else if(f.scope==='enemies')refs=[o+':H',...mins(o)];
-      refs.forEach(r=>damage(r,f.n,src));break}
-    case'destroy':{const m=ent(target);if(m){m.dead=true;fx(target,'Vernichtet','shield')}break}
-    case'buff':{const m=ent(target);if(m){m.atk+=f.a;m.hp+=f.h;m.max+=f.h;fx(target,`+${f.a}/+${f.h}`,'buff')}break}
-    case'drain':damage(target,f.n,src);heal(side+':H',f.n);break;
-    case'pact':damage(side+':H',f.n,null);draw(side,f.d);break;
-    case'mana':S[side].mana=Math.min(10,S[side].mana+1);break;
-  }}
-function resolveDeaths(){for(let g=0;g<12;g++){let any=false;
-  for(const side of['p','e']){const dead=S[side].board.filter(m=>m.hp<=0||m.dead);if(!dead.length)continue;any=true;
-    dead.forEach(m=>{const r=rectOf(side+':'+m.uid);if(r)GHOSTS.push(r)});
-    S[side].board=S[side].board.filter(m=>!(m.hp<=0||m.dead));
-    dead.forEach(m=>{const c=C[m.id];if(c.dr)runFx(c.dr,side,null,m)})}
-  if(!any)break}
-  if(!S.over&&(S.p.hp<=0||S.e.hp<=0))S.over=S.p.hp<=0&&S.e.hp<=0?'draw':S.p.hp<=0?'lose':'win'}
-
-async function commit(wait=320){render();playFx();if(S.over){await sleep(700);showEnd();return}await sleep(wait)}
-async function playCard(side,iid,target){const T=S[side],i=T.hand.findIndex(h=>h.iid===iid);if(i<0)return;const id=T.hand[i].id,c=C[id];
-  T.mana-=c.c;T.hand.splice(i,1);log(`${HEROES[side].short} spielt ${c.n}.`);
-  if(isM(c)){const m=summon(side,id);render();await sleep(260);if(c.bc&&m)runFx(c.bc,side,null,m)}
-  else runFx(c.fx,side,target,null);
-  resolveDeaths();await commit()}
-async function attack(aRef,tRef){const A=ent(aRef),T=ent(tRef);if(!A||!T)return;
-  await lunge(aRef,tRef);
-  log(`${C[A.id].n} greift ${isHero(tRef)?HEROES[tRef[0]].short:C[T.id].n} an.`);
-  damage(tRef,A.atk,{side:aRef[0],life:A.life,poison:A.poison});
-  if(!isHero(tRef))damage(aRef,T.atk,{side:tRef[0],life:T.life,poison:T.poison});
-  A.att--;resolveDeaths();await commit(380)}
-function usePower(side,target){const T=S[side];T.mana-=2;T.power=true;
-  if(side==='p'){log(`Glutstich trifft ${isHero(target)?HEROES[target[0]].short:C[ent(target).id].n}.`);damage(target,1,{side})}
-  else{log('Der Hohle König ruft einen Knochenknecht.');summon('e','knecht')}}
-
-async function startTurn(side){S.turn=side;const T=S[side];T.maxMana=Math.min(10,T.maxMana+1);T.mana=T.maxMana;T.power=false;T.board.forEach(m=>{m.sick=false;m.att=1});
-  draw(side,1);resolveDeaths();sel=null;await commit(200);if(S.over)return;
-  if(side==='p'){banner('Dein Zug')}else aiTurn()}
-function newGame(){S={turn:'p',over:null,p:mkSide(),e:mkSide(),uid:1,log:'Tippe eine Karte an, um sie anzusehen und auszuspielen.'};
-  draw('p',3);draw('e',4);S.e.hand.push({iid:S.uid++,id:'muenze'});S.log='Tippe eine Karte an, um sie anzusehen und auszuspielen.';
-  closeOv();busy=false;sel=null;startTurn('p')}
-
-/* ---------- Gegner-KI ---------- */
-const val=m=>m.atk+m.hp+(m.taunt?1:0)+(m.shield?2:0);
-function aiSpell(c){const P=S.p,E=S.e,f=c.fx,pm=P.board;
-  const killable=n=>pm.filter(m=>m.hp<=n&&!m.shield).sort((a,b)=>val(b)-val(a))[0];
-  switch(f.fx){
-    case'dmg':case'drain':{if(c.tg==='any'&&P.hp<=f.n)return{ok:1,t:'p:H'};const k=killable(f.n);if(k)return{ok:1,t:'p:'+k.uid};
-      if(c.tg==='any')return{ok:1,t:'p:H'};const big=[...pm].sort((a,b)=>b.atk-a.atk)[0];return big&&big.atk>=3?{ok:1,t:'p:'+big.uid}:{ok:0}}
-    case'destroy':{const b=[...pm].sort((a,b)=>val(b)-val(a))[0];return b&&val(b)>=7?{ok:1,t:'p:'+b.uid}:{ok:0}}
-    case'buff':{const b=[...E.board].sort((a,b)=>b.atk-a.atk)[0];return b?{ok:1,t:'e:'+b.uid}:{ok:0}}
-    case'aoe':if(f.scope==='enemyMinions')return{ok:pm.length>=2};return{ok:pm.reduce((s,m)=>s+val(m),0)-E.board.reduce((s,m)=>s+val(m),0)>=6};
-    case'pact':return{ok:E.hp>12&&E.hand.length<8};
-    case'heal':return{ok:E.hp<=24};
-    case'summon':return{ok:E.board.length<=5};
-    case'mana':return{ok:E.hand.some(h=>h.id!=='muenze'&&C[h.id].c===E.mana+1)&&E.mana<10};
-  }return{ok:0}}
-function aiChoose(){const E=S.e;let best=null;
-  for(const h of E.hand){const c=C[h.id];if(c.c>E.mana)continue;let t=null;
-    if(isM(c)){if(E.board.length>=7)continue}else{const r=aiSpell(c);if(!r.ok)continue;t=r.t||null}
-    const score=c.c*10+(isM(c)?1:0)+(h.id==='muenze'?-5:0);
-    if(!best||score>best.score)best={iid:h.iid,id:h.id,t,score}}
-  if(best&&best.id==='muenze'&&!E.hand.some(h=>h.id!=='muenze'&&C[h.id].c<=E.mana&&(isM(C[h.id])||aiSpell(C[h.id]).ok)))return best;
-  if(best&&best.id==='muenze'){const other=E.hand.filter(h=>h.id!=='muenze'&&C[h.id].c<=E.mana);if(other.length){}}
-  return best}
-function aiAttackTarget(m){const ref='e:'+m.uid,tg=attackTargets(ref),P=S.p;const taunts=P.board.filter(x=>x.taunt);
-  if(taunts.length){const k=taunts.filter(t=>(m.atk>=t.hp||m.poison)&&!t.shield).sort((a,b)=>val(b)-val(a))[0]||[...taunts].sort((a,b)=>a.hp-b.hp)[0];return'p:'+k.uid}
-  const ready=S.e.board.filter(x=>canAttack('e',x)).reduce((s,x)=>s+x.atk,0);if(ready>=P.hp)return'p:H';
-  let best=null,bs=0;for(const t of P.board){const kill=(m.atk>=t.hp||m.poison)&&!t.shield,live=t.atk<m.hp||m.shield;let s=0;
-    if(kill&&live)s=10+val(t);else if(kill&&val(t)>val(m)+1)s=5+val(t)-val(m);if(s>bs){bs=s;best=t}}
-  return best?'p:'+best.uid:(tg.includes('p:H')?'p:H':tg[0])}
-async function aiTurn(){busy=true;render();await sleep(800);const E=S.e;
-  for(let g=0;g<12&&!S.over;g++){const ch=aiChoose();if(!ch)break;await castShow(ch.id);await playCard('e',ch.iid,ch.t);await sleep(250)}
-  if(!S.over&&E.mana>=2&&!E.power&&E.board.length<7){usePower('e');await commit(450)}
-  for(let g=0;g<10&&!S.over;g++){const m=[...E.board].sort((a,b)=>b.atk-a.atk).find(x=>canAttack('e',x));if(!m)break;const t=aiAttackTarget(m);await attack('e:'+m.uid,t);await sleep(220)}
-  if(S.over){busy=false;return}
-  await sleep(350);busy=false;startTurn('p')}
-
-/* ---------- Darstellung ---------- */
-function textOf(c){const k=(c.kw||[]).map(x=>`<b>${KW[x]}</b>`).join(', ');return[k&&k+'.',c.tx].filter(Boolean).join(' ')}
-function cardHTML(id,w,o={}){const c=C[id],m=isM(c);const a=o.atk??c.a,h=o.hp??c.h;
-  const ac=o.atk!==undefined&&o.atk>c.a?'up':'',hc=o.hp!==undefined?(o.hp<o.max?'down':o.max>c.h?'up':''):'';
-  const t=textOf(c);
-  return `<div class="card ${o.mini?'mini':''} ${m?'':'spell'} ${c.lg?'legend':''}" style="--w:${w}px;--tint:${SC[c.sc]};--tex:url(${dtex(c.sc)})">
-  <div class="c-art"><img src="${ARTMAP['d-'+id]||ART[id]}" alt=""></div><div class="c-name"><span>${c.n}</span></div><div class="c-cost"><span>${c.c}</span></div>
-  <div class="c-type"><span>${m?(c.lg?'Legendärer ':'')+'Diener · '+c.tr:'Zauber'}</span></div>
-  <div class="c-text"><div>${t?`<p>${t}</p>`:''}${c.fl?`<p class="flav">${c.fl}</p>`:''}</div></div>
-  ${m?`<div class="c-atk ${ac}"><span>${a}</span></div><div class="c-hp ${hc}"><span>${h}</span></div>`:''}</div>`}
-function minionHTML(side,m){const c=C[m.id],ref=side+':'+m.uid,cl=['mn'];
-  if(m.taunt)cl.push('taunt');if(m.shield)cl.push('shield');if(side==='p'&&!busy&&canAttack('p',m))cl.push('ready');
-  if(sel&&sel.kind==='attack'&&sel.ref===ref)cl.push('sel');if(TG.has(ref))cl.push('tgt');if(NEW.has(m.uid))cl.push('enter');
-  const mk=(m.poison?'<i class="mk poison"></i>':'')+(m.life?'<i class="mk life"></i>':'')+(c.dr?'<i class="mk dr"></i>':'');
-  const zz=S.turn===side&&m.sick&&!m.charge?'<span class="zz">z</span>':'';
-  return `<button type="button" class="${cl.join(' ')}" data-ref="${ref}" aria-label="${c.n}, ${m.atk} Angriff, ${m.hp} Leben">${m.taunt?'<span class="mn-taunt"></span>':''}<span class="mn-body"><img src="${ARTMAP['d-'+m.id]||ART[m.id]}" alt=""><span class="mn-marks">${mk}</span></span>${zz}<span class="mn-atk ${m.atk>c.a?'up':''}">${m.atk}</span><span class="mn-hp ${m.hp<m.max?'down':m.max>c.h?'up':''}">${m.hp}</span></button>`}
-function playable(h){if(S.turn!=='p'||busy||S.over)return false;const c=C[h.id];if(c.c>S.p.mana)return false;if(isM(c))return S.p.board.length<7;if(c.tg)return validTargets('p',c.tg).length>0;return true}
-function powerUsable(){return S.turn==='p'&&!busy&&!S.over&&S.p.mana>=2&&!S.p.power}
-function targetsForSel(){if(!sel)return[];if(sel.kind==='attack')return attackTargets(sel.ref);if(sel.kind==='card'){const h=S.p.hand.find(x=>x.iid===sel.iid);return h?validTargets('p',C[h.id].tg):[]}if(sel.kind==='power')return validTargets('p','any');return[]}
-function render(){
-  TG=new Set(targetsForSel());
-  for(const s of['p','e']){const T=S[s];
-    $('#board-'+s).innerHTML=T.board.length?T.board.map(m=>minionHTML(s,m)).join(''):`<span class="empty">${s==='p'?'Dein Schlachtfeld':'Schlachtfeld des Gegners'}</span>`;
-    $('#hero-'+s).innerHTML=`<button type="button" class="hero ${TG.has(s+':H')?'tgt':''}" data-ref="${s}:H" aria-label="${HEROES[s].name}, ${T.hp} Leben"><span class="hero-art"><img src="${ARTMAP['h-'+s]||HART[s]}" alt=""></span><span class="hp ${T.hp<T.max?'hurt':''}">${T.hp}</span></button>`;
-    const cr=Array.from({length:10},(_,i)=>`<i class="${i<T.mana?'on':''}" style="${i>=T.maxMana?'opacity:.25':''}"></i>`).join('');
-    $('#info-'+s).innerHTML=`<div class="who">${HEROES[s].name}</div><div class="mana"><span class="gem"></span>${T.mana}/${T.maxMana}</div>${s==='p'?`<div class="crys">${cr}</div>`:`<div class="backs">${T.hand.map(()=>'<i></i>').join('')}</div>`}<div class="meta">Stapel ${T.deck.length}${s==='e'?' · Hand '+T.hand.length:''}</div>`;
-    const pu=s==='p'&&powerUsable();
-    $('#power-'+s).innerHTML=`<button type="button" class="power ${T.power?'used':''} ${pu?'can':''} ${s==='p'&&sel&&sel.kind==='power'?'armed':''}" id="pw-${s}" aria-label="${HEROES[s].power}: ${HEROES[s].ptx}"><span class="pa"><img src="${PART[s]}" alt=""></span><span class="pc">2</span></button><span class="plabel">${HEROES[s].power}</span>`}
-  renderHand();
-  const L=$('#log');
-  if(sel){L.className='hint';L.textContent=sel.kind==='attack'?'Wähle ein Angriffsziel':sel.kind==='power'?'Glutstich: Wähle ein Ziel':'Wähle ein Ziel für '+C[S.p.hand.find(x=>x.iid===sel.iid)?.id]?.n;$('#cancel').innerHTML='<button type="button" class="chip" id="cx">Abbrechen</button>'}
-  else{L.className='';L.textContent=S.log;$('#cancel').innerHTML=''}
-  const et=$('#endturn');if(S.turn==='p'&&!S.over){et.disabled=busy;et.textContent='Zug beenden';
-    const any=S.p.hand.some(playable)||S.p.board.some(m=>canAttack('p',m))||powerUsable();et.classList.toggle('done',!busy&&!any)}
-  else{et.disabled=true;et.classList.remove('done');et.textContent=S.over?'Partie vorbei':'Gegner am Zug'}
-  NEW.clear()}
-function renderHand(){const el=$('#hand'),H=S.p.hand,n=H.length,W=el.clientWidth||320,cw=HW;
-  const step=n>1?Math.min(cw*.94,(W-cw)/(n-1)):0,tot=cw+step*(n-1),st=(W-tot)/2,mid=(n-1)/2;
-  el.innerHTML=H.map((h,i)=>{const rot=(i-mid)*(n>6?2:3),dy=Math.pow(Math.abs(i-mid),2)*(n>6?.8:1.4);
-    return `<button type="button" class="hc ${playable(h)?'playable':''} ${sel&&sel.kind==='card'&&sel.iid===h.iid?'lift':''}" data-hand="${h.iid}" style="left:${st+i*step}px;transform:translateY(${dy}px) rotate(${rot}deg);z-index:${i+1}" aria-label="${C[h.id].n}, ${C[h.id].c} Mana">${cardHTML(h.id,cw,{mini:1})}</button>`}).join('')}
-function layout(){const app=$('#app'),w=app.clientWidth,h=app.clientHeight||innerHeight;
-  const mw=Math.max(42,Math.min(80,Math.floor((w-32-36)/7)));HW=Math.max(60,Math.min(104,Math.floor(w*.19),Math.floor(h*.14)));
-  const hero=Math.max(54,Math.min(88,Math.floor(w*.17),Math.floor(h*.1)));
-  app.style.setProperty('--mw',mw+'px');app.style.setProperty('--hw',HW+'px');app.style.setProperty('--hero',hero+'px')}
-
-/* ---------- Effekte ---------- */
-function playFx(){const layer=$('#fx');
-  FXQ.forEach((f,i)=>{const el=document.querySelector(`[data-ref="${f.ref}"]`);const r=el?el.getBoundingClientRect():f.rect;if(!r)return;
-    const d=document.createElement('div');d.className='float '+(f.kind==='dmg'?'':f.kind);d.textContent=f.text;d.style.left=(r.left+r.width/2)+'px';d.style.top=(r.top+r.height/2)+'px';layer.appendChild(d);
-    d.animate([{transform:'translate(-50%,-50%) scale(.6)',opacity:0},{transform:'translate(-50%,-60%) scale(1.15)',opacity:1,offset:.15},{transform:'translate(-50%,-180%) scale(1)',opacity:0}],{duration:RM?400:1100,delay:i*40,easing:'ease-out',fill:'both'}).finished.then(()=>d.remove());
-    if(el&&f.kind==='dmg'&&!RM)el.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(-3px)'},{transform:'translateX(0)'}],{duration:280})});
-  GHOSTS.forEach(r=>{const d=document.createElement('div');d.className='ash';Object.assign(d.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});layer.appendChild(d);
-    d.animate([{transform:'scale(1)',opacity:1,filter:'blur(0)'},{transform:'scale(1.4) translateY(-14px)',opacity:0,filter:'blur(8px)'}],{duration:RM?300:900,easing:'ease-out',fill:'both'}).finished.then(()=>d.remove())});
-  FXQ=[];GHOSTS=[]}
-async function lunge(aRef,tRef){const a=document.querySelector(`[data-ref="${aRef}"]`),t=document.querySelector(`[data-ref="${tRef}"]`);if(!a||!t||RM)return;
-  const ra=a.getBoundingClientRect(),rt=t.getBoundingClientRect();const dx=(rt.left+rt.width/2)-(ra.left+ra.width/2),dy=(rt.top+rt.height/2)-(ra.top+ra.height/2);
-  a.style.zIndex=30;await a.animate([{transform:'translate(0,0)'},{transform:`translate(${dx*.15}px,${dy*.15-10}px) scale(1.1)`,offset:.3},{transform:`translate(${dx*.82}px,${dy*.82}px) scale(1.08)`,offset:.6},{transform:'translate(0,0)'}],{duration:480,easing:'ease-in-out'}).finished}
-async function castShow(id){const el=$('#cast');const w=Math.min(220,innerWidth*.56,(innerHeight*.5)/1.4);
-  el.innerHTML=`<div class="inner"><div class="who2">Der Hohle König spielt</div>${cardHTML(id,w)}</div>`;el.hidden=false;await sleep(1150);el.hidden=true;el.innerHTML=''}
 function banner(t){const b=$('#banner');b.innerHTML=`<span>${t}</span>`;b.hidden=false;setTimeout(()=>{b.hidden=true},RM?300:1350)}
-
-/* ---------- Overlays ---------- */
 function showOv(html){const o=$('#ov');o.innerHTML=html;o.hidden=false}
 function closeOv(){const o=$('#ov');o.hidden=true;o.innerHTML=''}
-function kwHelp(c){const k=(c.kw||[]).map(x=>KW[x]);if(c.bc)k.push('Ruf');if(c.dr)k.push('Vermächtnis');return k.length?`<ul class="kws">${k.map(x=>`<li><b>${x}:</b> ${KWINFO[x]}</li>`).join('')}</ul>`:''}
-const pvw=()=>Math.floor(Math.min(250,innerWidth*.66,(innerHeight*.58)/1.4));
-function openPreview(iid){const h=S.p.hand.find(x=>x.iid===iid);if(!h)return;sel=null;render();const c=C[h.id];let why='';
-  if(S.over)why='Die Partie ist vorbei.';else if(S.turn!=='p'||busy)why='Der Gegner ist am Zug.';else if(c.c>S.p.mana)why=`Dir fehlen ${c.c-S.p.mana} Mana.`;else if(isM(c)&&S.p.board.length>=7)why='Dein Schlachtfeld ist voll.';else if(c.tg&&!validTargets('p',c.tg).length)why='Es gibt kein gültiges Ziel.';
-  showOv(`<div class="pv">${cardHTML(h.id,pvw())}${kwHelp(c)}${wkSection('d-'+h.id)}<div class="pv-act">${why?`<p class="why">${why}</p>`:`<button type="button" class="btn primary" data-act="play" data-iid="${iid}">Ausspielen · ${c.c} Mana</button>`}<button type="button" class="btn" data-act="close">Zurück</button></div></div>`);WK.reopen=()=>openPreview(iid)}
-function openDetail(ref){const m=ent(ref);if(!m)return;const c=C[m.id];
-  const st=[m.taunt&&'Wächter',m.shield&&'Schleier aktiv',m.poison&&'Gift',m.life&&'Lebensentzug'].filter(Boolean);
-  showOv(`<div class="pv">${cardHTML(m.id,pvw(),{atk:m.atk,hp:m.hp,max:m.max})}${kwHelp(c)}${wkSection('d-'+m.id)}<div class="pv-act"><button type="button" class="btn" data-act="close">Schließen</button></div></div>`);WK.reopen=()=>openDetail(ref)}
-function showEnd(){const o=S.over,t=o==='win'?'Sieg':o==='lose'?'Niederlage':'Unentschieden';
-  const p=o==='win'?'Der Hohle König zerfällt zu Asche. Sein Thron gehört dir.':o==='lose'?'Die Asche erkaltet. Der Hohle König herrscht weiter.':'Beide Throne bleiben leer.';
-  showOv(`<div class="end ${o==='lose'?'lose':''}"><h2>${t}</h2><p>${p}</p><button type="button" class="btn primary" data-act="new">Neue Partie</button></div>`)}
-
-/* ---------- Eingaben ---------- */
-async function doPlay(iid,target){busy=true;sel=null;await playCard('p',iid,target);busy=false;render()}
-async function doAttack(a,t){busy=true;sel=null;render();await attack(a,t);busy=false;render()}
-async function doPower(t){busy=true;sel=null;usePower('p',t);resolveDeaths();await commit();busy=false;render()}
-function onRef(ref){
-  if(sel&&TG.has(ref)&&!busy&&S.turn==='p'){const s=sel;sel=null;
-    if(s.kind==='attack')return doAttack(s.ref,ref);if(s.kind==='card')return doPlay(s.iid,ref);if(s.kind==='power')return doPower(ref)}
-  if(isHero(ref)){if(sel){sel=null;render()}return}
-  const side=ref[0],m=ent(ref);if(!m)return;
-  if(side==='p'&&!busy&&canAttack('p',m)&&!(sel&&sel.ref===ref)){sel={kind:'attack',ref};render();return}
-  sel=null;render();openDetail(ref)}
-document.addEventListener('click',e=>{const t=e.target;
-  const act=t.closest('[data-act]');
-  if(act){const a=act.dataset.act;if(a==='close')closeOv();else if(a==='new')newGame();
-    else if(a==='play'){const iid=+act.dataset.iid,h=S.p.hand.find(x=>x.iid===iid);closeOv();if(!h)return;const c=C[h.id];
-      if(c.tg){sel={kind:'card',iid};render()}else doPlay(iid,null)}return}
-  if(t.closest('#ov')){if(t.id==='ov'&&!S.over&&!BT&&!(PK&&PK.phase==='over'&&mode==='poker'))closeOv();return}
-  if(t.closest('#cx')){sel=null;render();return}
-  if(t.closest('#endturn')){if(S.turn==='p'&&!busy&&!S.over){sel=null;busy=true;render();setTimeout(()=>{busy=false;startTurn('e')},150)}return}
-  if(t.closest('#pw-p')){if(powerUsable()){sel=sel&&sel.kind==='power'?null:{kind:'power'};render()}return}
-  const r=t.closest('[data-ref]');if(r){onRef(r.dataset.ref);return}
-  const h=t.closest('[data-hand]');if(h){openPreview(+h.dataset.hand);return}
-  if(sel){sel=null;render()}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#ov').hidden&&!S.over)closeOv();else if(sel){sel=null;render()}}});
-addEventListener('resize',()=>{layout();if(S)render()});
+document.addEventListener('click',e=>{const t=e.target,act=t.closest('[data-act]');
+  if(act&&act.dataset.act==='close'){closeOv();return}
+  if(t.id==='ov'&&!BT&&!(PK&&(PK.phase==='over'||PK.phase==='intro')))closeOv()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#ov').hidden&&!(PK&&(PK.phase==='over'||PK.phase==='intro')))closeOv()});
 
 /* ===== Rabenblatt-Kartenkunst: Reichs-Szenen + Kreaturen mit Lichtkante ===== */
 /* ===== Rabenblatt-Kartenkunst: Reichs-Szenen + Kreaturen mit Lichtkante ===== */
@@ -1263,12 +842,12 @@ const PART2={};
 function partOf(c){return ARTMAP['pk-'+c.r+'-'+c.s]||PART2[c.id]||(PART2[c.id]=PKART.paint(c))}
 const baseAtk=c=>PST[c.r][0],baseHp=c=>PST[c.r][1];
 const AVA=[null,
-  {name:'Vargo Rotzahn',short:'Vargo',tag:'Söldner',style:{aggr:.75,bluff:.16,callF:.95,tight:0,sticky:.5},art:{hue:15,l:[.5,.3],back:['fireSky'],front:['figure'],eyes:'#ff9040',fs:1.35,wide:1.3}},
-  {name:'Mutter Grauweid',short:'Grauweid',tag:'Hexe',style:{aggr:.55,bluff:.04,callF:1.15,tight:.5,sticky:.3},art:{hue:110,l:[.5,.25],back:['moon'],front:['figure','mist'],eyes:'#c8f07a',fs:1.35}},
-  {name:'Gerrit Halbhand',short:'Gerrit',tag:'Trinker',style:{aggr:.3,bluff:.07,callF:.8,tight:-.2,sticky:.85},art:{hue:210,l:[.5,.3],back:['moon'],front:['figure','snow'],eyes:'#9fd8ff',fs:1.35,wide:1.4}},
-  {name:'Ser Odo Kaltblut',short:'Ser Odo',tag:'Ritter',style:{aggr:.5,bluff:.08,callF:1,tight:.2,sticky:.4},art:{hue:40,l:[.5,.3],back:['moon'],front:['figure','halo'],eyes:'#fff0c0',fs:1.35,wide:1.5}},
-  {name:'Die stumme Ysa',short:'Ysa',tag:'Meuchlerin',style:{aggr:.65,bluff:.22,callF:.9,tight:-.1,sticky:.45},art:{hue:300,l:[.5,.3],back:['crows'],front:['figure'],eyes:'#ff60c0',fs:1.35}},
-  {name:'Der Hohle König',short:'Hohler König',tag:'Herrscher',style:{aggr:.62,bluff:.12,callF:1.05,tight:.25,sticky:.35},art:{hue:195,l:[.5,.2],back:['moon'],front:['giant','crown'],eyes:'#7fe8ff'}}];
+  {name:'Vargo Rotzahn',short:'Vargo',tag:'Der Rabauke',lv:2,elo:900,desc:'Erhöht ständig, blufft oft. Lass ihn kommen und geh mit starken Händen mit.',art:{hue:15,l:[.5,.3],back:['fireSky'],front:['figure'],eyes:'#ff9040',fs:1.35,wide:1.3}},
+  {name:'Mutter Grauweid',short:'Grauweid',tag:'Die Vorsichtige',lv:3,elo:1100,desc:'Spielt nur Starkes und gibt sonst auf. Bluffe sie, aber fürchte ihre Erhöhungen.',art:{hue:110,l:[.5,.25],back:['moon'],front:['figure','mist'],eyes:'#c8f07a',fs:1.35}},
+  {name:'Gerrit Halbhand',short:'Gerrit',tag:'Der Zecher',lv:1,elo:800,desc:'Geht mit fast allem mit und sieht nur Pokerkombos, keine Kämpfe. Wette Werte, bluffe nie.',art:{hue:210,l:[.5,.3],back:['moon'],front:['figure','snow'],eyes:'#9fd8ff',fs:1.35,wide:1.4}},
+  {name:'Ser Odo Kaltblut',short:'Ser Odo',tag:'Der Stetige',lv:4,elo:1400,desc:'Solide, rechnet sauber und stellt nach Stärke auf. Sein Muster ist lesbar.',art:{hue:40,l:[.5,.3],back:['moon'],front:['figure','halo'],eyes:'#fff0c0',fs:1.35,wide:1.5}},
+  {name:'Die stumme Ysa',short:'Ysa',tag:'Die Meuchlerin',lv:5,elo:1560,desc:'Liest dich, blufft im richtigen Moment und stellt gegen dein Muster auf.',art:{hue:300,l:[.5,.3],back:['crows'],front:['figure'],eyes:'#ff60c0',fs:1.35}},
+  {name:'Der Hohle König',short:'Hohler König',tag:'Der Meister',lv:6,elo:1640,desc:'Rechnet jeden Kampf, passt sich dir an und würfelt seine Aufstellung. Kaum Schwächen.',art:{hue:195,l:[.5,.2],back:['moon'],front:['giant','crown'],eyes:'#7fe8ff'}}];
 const AVART=AVA.map((a,i)=>a?paint('av'+i,a.art,96,96):null);
 const NP=AVA.length;
 
@@ -1372,7 +951,7 @@ function entry(cards){const t=pickTeam(cards);return{team:t.team,score:t.b.score
 function orderTeam(team,order){if(!order||order.length!==team.length)return team;const o=order.map(id=>team.find(f=>f.c.id===id));return o.every(Boolean)?o:team}
 function teamOf(five){const t=mkTeam(five);return{team:t.team,score:t.b.score,b:t.b,five}}
 
-let PK=null,pkBusy=false,mode='duel';
+let PK=null,pkBusy=false,mode='poker';
 /* Marmorierte Rahmen-Texturen */
 function frameTex(base,hi,lo,seed){const W=120,H=168,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');let a=seed>>>0;const r=()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
   x.fillStyle=base;x.fillRect(0,0,W,H);for(let i=0;i<70;i++){const cx=r()*W,cy=r()*H,R=6+r()*26,g=x.createRadialGradient(cx,cy,0,cx,cy,R);const c=r()<.5?hi:lo;g.addColorStop(0,c);g.addColorStop(1,'rgba(0,0,0,0)');x.globalAlpha=.22;x.fillStyle=g;x.fillRect(cx-R,cy-R,R*2,R*2)}
@@ -1395,8 +974,13 @@ const pot=()=>PK.players.reduce((s,p)=>s+p.total,0);
 const ante=()=>Math.round(PK.bb/4);
 function nextIdx(i){const n=PK.players.length;for(let k=1;k<=n;k++){const j=(i+k)%n;if(!PK.players[j].out)return j}return i}
 function pay(p,a){a=Math.max(0,Math.min(a,p.chips));p.chips-=a;p.bet+=a;p.total+=a;if(p.chips===0)p.allin=true;return a}
-function pkNew(st){st=st??PRO.station;const S0=STATIONS[st],ids=[0,...S0.opp];SESS={st,t0:Date.now(),hands:[],opp:{}};PK={st,hand:0,dealer:Math.random()*ids.length|0,bb:S0.bb,players:ids.map((aid,i)=>({i,aid,human:i===0,name:aid?AVA[aid].name:'Du',chips:1000,hole:[],bet:0,total:0,folded:false,out:false,allin:false,acted:false,last:'',disc:null})),
-  board:[],street:'pre',phase:'idle',log:'',hi:null,winners:[],dealt:0};closeOv();pkStartHand()}
+function pkNew(st){st=st??PRO.station;const S0=STATIONS[st],ids=[0,...S0.opp];SESS={st,t0:Date.now(),hands:[],opp:{}};PK={st,hand:0,dealer:Math.random()*ids.length|0,bb:S0.bb,players:ids.map((aid,i)=>({i,aid,human:i===0,name:aid?AVA[aid].name:'Du',chips:S0.stack||1000,model:aid?AIM.newModel():null,hole:[],bet:0,total:0,folded:false,out:false,allin:false,acted:false,last:'',disc:null})),
+  board:[],street:'pre',phase:'idle',log:'',hi:null,winners:[],dealt:0};pkIntro()}
+function pkIntro(){const S0=STATIONS[PK.st],a=AVA[S0.opp[0]];PK.phase='intro';
+  showOv(`<div class="intro"><div class="win-k">Duell ${PK.st+1} von ${STATIONS.length} · ${S0.n}</div><div class="av-l"><img src="${AVART[S0.opp[0]]}" alt=""></div><h2 class="win-t">${a.name}</h2><div class="win-f">${a.tag} · Wertung ${a.elo} · du ${PRO.elo||1000}</div>
+    <p class="win-sub">${a.desc}</p>
+    <ul class="rules"><li><b>Jeder von euch startet mit ${S0.stack} Gold.</b> Wer alles hat, gewinnt das Duell. Die Blinds steigen alle acht Hände.</li><li><b>Dreifaches Schicksal:</b> Geht jemand vor dem River all-in, werden die restlichen Karten dreimal gelegt und der Pot gedrittelt. Pech wird gedämpft.</li><li><b>Verdeckte Aufstellung:</b> Beide stellen ihr Team gleichzeitig auf. Die Reihenfolge der Bahnen kann einen Kampf drehen, und wer immer gleich aufstellt, wird gelesen.</li></ul>
+    <div class="pv-act"><button type="button" class="btn gold" data-pa="start">Karten!</button></div></div>`)}
 function pkStartHand(){const P=PK.players;const fresh=P.filter(p=>!p.human&&!p.out&&p.chips<=0);P.forEach(p=>{p.out=p.chips<=0});
   if(fresh.length&&!P[0].out)fresh.forEach((p,k)=>setTimeout(()=>pkBounty(p),k*1500));
   if(P[0].out||P.filter(p=>!p.out).length<2){PK.phase='over';pkRender();pkOverScreen();return}
@@ -1423,7 +1007,7 @@ function pkApply(p,a,to){const P=PK.players,prev=PK.curBet;const tb0=p.total,pot
   else if(a==='raise'){to=Math.min(to,p.bet+p.chips);if(to<=PK.curBet){pay(p,PK.curBet-p.bet);p.last=p.allin?'Alles drin':'Geht mit'}
     else{const by=to-PK.curBet;pay(p,to-p.bet);if(by>=PK.minRaise)PK.minRaise=by;PK.curBet=to;P.forEach(q=>{if(q!==p)q.acted=false});
       p.last=p.allin?'Alles drin':prev===0?'Setzt '+to:'Erhöht auf '+to}}
-  p.acted=true;PK.log=`${p.human?'Du':p.name}: ${p.last}.`;stAct(p,a,p.total-tb0,tc0,pot0,st0)}
+  p.acted=true;PK.log=`${p.human?'Du':p.name}: ${p.last}.`;if(p.human)aiLearn(p,a,tc0);stAct(p,a,p.total-tb0,tc0,pot0,st0)}
 function startBetting(){PK.phase='bet';PK.players.forEach(p=>{p.acted=false});PK.toAct=nextIdx(PK.dealer)}
 async function pkRun(){if(pkBusy)return;pkBusy=true;
   try{for(let guard=0;guard<300;guard++){if(mode!=='poker')break;
@@ -1442,36 +1026,52 @@ async function pkRun(){if(pkBusy)return;pkBusy=true;
       pkRender();await sleep(650);startBetting()}
     else break}}
   finally{pkBusy=false}}
-async function pkNextStreet(){const P=PK.players;P.forEach(p=>{p.bet=0;p.acted=false;if(!p.folded&&!p.allin)p.last=''});PK.curBet=0;PK.minRaise=PK.bb;
+async function pkNextStreet(){const P=PK.players;{const lv0=P.filter(p=>!p.folded&&!p.out);if(PK.street!=='pre'&&PK.street!=='show'&&PK.board.length<5&&lv0.length>1&&lv0.filter(p=>!p.allin).length<=1){PK.street='show';PK.log='Alles ist gesetzt. Die Raben werfen das Schicksal dreimal.';pkRender();banner('Dreifaches Schicksal');SFX.boom();await sleep(1500);await pkShowdown();return}}P.forEach(p=>{p.bet=0;p.acted=false;if(!p.folded&&!p.allin)p.last=''});PK.curBet=0;PK.minRaise=PK.bb;
   if(PK.street==='pre'){PK.deck.pop();PK.board.push(PK.deck.pop(),PK.deck.pop(),PK.deck.pop());PK.street='flop';PK.dealt=Date.now();PK.log='Der Flop liegt.';pkRender();stBoard();await sleep(850);PK.phase='discard';return}
   if(PK.street==='river'||PK.street==='show'){await pkShowdown();return}
   PK.deck.pop();PK.board.push(PK.deck.pop());PK.street=PK.street==='flop'?'turn':'river';PK.dealt=Date.now();
   PK.log=PK.street==='turn'?'Die vierte Karte: der Turn.':'Die letzte Karte: der River.';pkRender();stBoard();setTimeout(()=>stStreetEq(PK.street),0);await sleep(750);startBetting()}
 async function pkAward(w){const a=pot();w.chips+=a;PK.winners=[w.i];PK.log=`${w.human?'Du gewinnst':w.name+' gewinnt'} ${a} Gold. Alle anderen haben aufgegeben.`;PK.phase='done';PK.waiting=false;const before=w.chips-a;stFinish(w.human?'foldwin':'fold',{winner:w,pot:a});pkRender();if(w.human)pkPayoff({won:true,gold:a,before,fold:true})}
 async function pkShowdown(){const P=PK.players,live=P.filter(p=>!p.folded&&!p.out);PK.street='show';
-  live.forEach(p=>{if(p.hole.length===3)aiDiscard(p);if(!p.human){const e=strongest([...p.hole,...PK.board]);p.combo=e.b;p.team=e.team}});
-  const me=P[0];if(live.includes(me)){const e=strongest([...me.hole,...PK.board]);PK.lineup=e.five.map(c=>c.id);PK.order=null;PK.ordSel=null;PK.phase='lineup';PK.waiting=true;
-    PK.log='Stelle dein Kampfteam auf: wähle 5 deiner 7 Karten.';pkRender();return}
+  live.forEach(p=>{if(p.hole.length===3)aiDiscard(p)});
+  const me=P[0];if(live.includes(me)&&PK.board.length===5){const e=strongest([...me.hole,...PK.board]);PK.lineup=e.five.map(c=>c.id);PK.order=null;PK.ordSel=null;PK.phase='lineup';PK.waiting=true;
+    PK.log='Stelle dein Kampfteam auf: wähle 5 deiner 7 Karten und lege die Bahnen fest. Dein Gegner stellt gleichzeitig auf, du siehst seine Reihe erst im Kampf.';pkRender();return}
   await pkBattle()}
-async function pkBattle(){const P=PK.players,live=P.filter(p=>!p.folded&&!p.out),me=P[0];PK.phase='battle';PK.waiting=false;
-  if(live.includes(me)){const t=teamOf(PK.lineup.map(id=>CARDBY[id]));me.combo=t.b;me.team=orderTeam(t.team,PK.order)}
-  const all=rankTeams(live.map(p=>({p,team:p.team,score:p.combo.score})));all.forEach(x=>x.p.wins=x.wins);
-  PK.log=live.length>2?'Showdown! Jedes Team kämpft gegen jedes.':'Showdown! Die Teams treten an.';pkRender();await sleep(500);
-  let a,b;if(live.includes(me)){a=me;b=all.find(x=>x.p!==me).p}else{a=all[0].p;b=all[1].p}
-  await showBattle(a,b);
-  const chipsBefore=me.chips;
-  const lv=[...new Set(live.map(p=>p.total))].sort((x,y)=>x-y);let prev=0;const res=[];
-  lv.forEach((L,k)=>{let amt=0;P.forEach(p=>{amt+=Math.max(0,Math.min(p.total,L)-prev);if(k===lv.length-1)amt+=Math.max(0,p.total-L)});
-    const el=live.filter(p=>p.total>=L);const R=el.length>1?rankTeams(el.map(p=>({p,team:p.team,score:p.combo.score}))):[{p:el[0],wins:0,score:0}];
-    const w=topOf(R).map(x=>x.p);const share=Math.floor(amt/w.length);w.forEach(p=>p.chips+=share);w[0].chips+=amt-share*w.length;if(amt>0)res.push({amt,w});prev=L});
-  const main=res[res.length-1]||{w:[all[0].p],amt:0};PK.winners=[...new Set(res.flatMap(r=>r.w.map(p=>p.i)))];
-  PK.hi=new Set(main.w.flatMap(p=>p.combo.five.map(c=>c.id)));
-  const total=res.reduce((s,r)=>s+r.amt,0),w0=main.w[0],gw=res.filter(r=>r.w.includes(w0)).reduce((s,r)=>s+r.amt,0);
-  const many=live.length>2?` (${w0.wins} von ${live.length-1} Kämpfen)`:'';
-  PK.log=main.w.length>1?`Geteilter Pot: ${main.w.map(p=>p.human?'Du':p.name).join(' & ')}.`:
-    `${w0.human?'Dein Team siegt':'Das Team von '+w0.name+' siegt'}${many} und holt ${gw} Gold.${gw<total?' Nebentöpfe gingen an andere.':''}`;
-  PK.phase='done';PK.waiting=false;stFinish(live.includes(me)?'show':'fold',{all,live,pot:total,winners:main.w,before:chipsBefore});pkRender();
-  if(live.includes(me)){const gain=me.chips-chipsBefore;if(gain>0){const beaten=all.filter(x=>x.p!==me).map(x=>x.p);pkPayoff({won:true,gold:gain,before:chipsBefore,combo:me.combo,beaten})}else{SFX.lose()}}}
+const P5=(()=>{const o=[],rec=(a,u)=>{if(a.length===5){o.push(a.slice());return}for(let i=0;i<5;i++)if(!u[i]){u[i]=1;a.push(i);rec(a,u);a.pop();u[i]=0}};rec([],[]);return o})();
+/* Nachbesprechung: Hätte eine andere Reihenfolge diesen Kampf gedreht? Nimmt die kleinste Umstellung. */
+function coachOrder(mine,opp){if(battle(mine,opp).w===0)return null;let best=null,bd=99;
+  for(const pm of P5){const o=pm.map(i=>mine[i]);if(battle(o,opp).w===0){const d=pm.reduce((s,v,i)=>s+Math.abs(v-i),0);if(d<bd){bd=d;best=o}}}
+  return best?'Mit der Reihenfolge '+best.map(f=>RN(f.r)).join(' · ')+' hättest du diesen Kampf gewonnen.':'Auch mit anderer Reihenfolge war dieser Kampf nicht zu gewinnen.'}
+function pkConfirmFive(){const P=PK.players,live=P.filter(p=>!p.folded&&!p.out&&!p.human);PK.aiFive={};
+  live.forEach(p=>{PK.aiFive[p.i]=AIM.strongestFive([...p.hole,...PK.board],aiLv(p))});const q=live[0],t=mkTeam(PK.aiFive[q.i]);PK.oppRow={team:t.team,b:t.b};
+  PK.order=null;PK.ordSel=null;PK.phase='order';PK.waiting=true;PK.log=`${q.name} hat sein Team gewählt. Lege jetzt die Reihenfolge der Bahnen fest.`;pkRender()}
+/* Showdown: ein Kampf, bei All-in vor dem River dreimal mit je neuem Board (Dreifaches Schicksal), der Pot wird gedrittelt */
+async function pkBattle(){const P=PK.players,live=P.filter(p=>!p.folded&&!p.out),me=P[0],inMe=live.includes(me);PK.phase='battle';PK.waiting=false;PK.coach=null;
+  const base=PK.board.slice(),rn=base.length<5?3:1,chipsBefore=me.chips,before=Object.fromEntries(P.map(p=>[p.i,p.chips])),totalPot=pot(),WR={};live.forEach(p=>WR[p.i]=0);
+  const lv=[...new Set(live.map(p=>p.total))].sort((x,y)=>x-y);let all=null;PK.rn=rn;
+  for(let r=0;r<rn;r++){
+    if(rn>1){const rem=shuffle(PK.deck.slice());PK.board=base.concat(rem.slice(0,5-base.length));PK.dealt=Date.now();PK.hi=null;PK.log=`Dreifaches Schicksal · Wurf ${r+1} von 3`;pkRender();SFX.card();await sleep(1100)}
+    const F={};live.forEach(p=>{const cards=[...p.hole,...PK.board];F[p.i]=p.human?(rn===1&&PK.lineup?PK.lineup.map(id=>CARDBY[id]):strongest(cards).five):((rn===1&&PK.aiFive&&PK.aiFive[p.i])||AIM.strongestFive(cards,aiLv(p)))});
+    live.forEach(p=>{const tm=mkTeam(F[p.i]);p.combo=tm.b;if(p.human)p.team=rn===1&&PK.order?orderTeam(tm.team,PK.order):tm.team;
+      else{const o=live.find(x=>x!==p);p.team=o?AIM.chooseOrder(F[p.i],F[o.i],aiLv(p),p.model):tm.team}});
+    if(r===0&&inMe){const so=mkTeam(me.combo.five).team.map(f=>f.c.id).join(),mo=me.team.map(f=>f.c.id).join();P.forEach(p=>{if(p.model){p.model.lines++;if(so===mo)p.model.sorted++}})}
+    all=rankTeams(live.map(p=>({p,team:p.team,score:p.combo.score})));all.forEach(x=>x.p.wins=x.wins);
+    PK.log=rn>1?`Dreifaches Schicksal · Wurf ${r+1} von 3: Die Teams treten an.`:'Showdown! Die Teams treten an.';pkRender();await sleep(500);
+    let a,b;if(inMe){a=me;b=all.find(x=>x.p!==me).p}else{a=all[0].p;b=all[1].p}
+    await showBattle(a,b);WR[topOf(all)[0].p.i]++;
+    if(rn===1&&inMe){const q=live.find(x=>x!==me);PK.coach=q?coachOrder(me.team,q.team):null;if(PK.cur)PK.cur.coach=PK.coach}
+    let prev=0;lv.forEach((L,k)=>{let amt=0;P.forEach(p=>{amt+=Math.max(0,Math.min(p.total,L)-prev);if(k===lv.length-1)amt+=Math.max(0,p.total-L)});
+      const part=r<rn-1?Math.floor(amt/rn):amt-Math.floor(amt/rn)*(rn-1);
+      const el=live.filter(p=>p.total>=L);const R=el.length>1?rankTeams(el.map(p=>({p,team:p.team,score:p.combo.score}))):[{p:el[0],wins:0,score:0}];
+      const w=topOf(R).map(x=>x.p);const share=Math.floor(part/w.length);w.forEach(p=>p.chips+=share);w[0].chips+=part-share*w.length;prev=L})}
+  const gain=p=>p.chips-before[p.i];let win=live.filter(p=>gain(p)>0);if(!win.length)win=live.slice();
+  const w0=win.reduce((x,y)=>gain(y)>gain(x)?y:x,win[0]);PK.winners=win.map(p=>p.i);PK.hi=new Set(w0.combo.five.map(c=>c.id));
+  const who=w0.human?'Du':w0.name;
+  PK.log=win.length>1&&Math.abs(gain(win[0])-gain(win[1]))<1?`Geteilter Pot zwischen ${win.map(p=>p.human?'Du':p.name).join(' & ')}.`:
+    rn>1?`Dreifaches Schicksal: ${who} ${w0.human?'gewinnst':'gewinnt'} ${WR[w0.i]} von 3 Würfen und ${w0.human?'holst':'holt'} ${gain(w0)} Gold.`:`${w0.human?'Dein Team siegt':'Das Team von '+w0.name+' siegt'} und holt ${gain(w0)} Gold.`;
+  if(PK.coach)PK.log+=' '+PK.coach;
+  PK.phase='done';PK.waiting=false;stFinish(inMe?'show':'fold',{all,live,pot:totalPot,winners:win,before:chipsBefore});pkRender();
+  if(inMe){const g=me.chips-chipsBefore;if(g>0){const beaten=all.filter(x=>x.p!==me).map(x=>x.p);pkPayoff({won:true,gold:g,before:chipsBefore,combo:me.combo,beaten})}else{SFX.lose()}}}
 
 /* ---------- Kampf-Ansicht ---------- */
 let BT=null;
@@ -1533,17 +1133,79 @@ function equity(p,iters){const P=PK.players,opps=P.filter(q=>q!==p&&!q.folded&&!
     for(const q of opps){const h=[];for(let k=0;k<q.hole.length;k++)h.push(take());list.push(entry([...h,...board]))}
     const top=topOf(rankTeams(list));if(top.some(x=>x.me))win+=1/top.length}
   return win/iters}
-function aiDecide(p){const st=AVA[p.aid].style,P=PK.players,opps=P.filter(q=>q!==p&&!q.folded&&!q.out).length;
-  const eq=Math.max(0,Math.min(1,equity(p,PK.street==='pre'?40:70)+(Math.random()-.5)*STATIONS[PK.st||0].noise)),fair=1/(opps+1),rel=eq/fair,toCall=PK.curBet-p.bet,pt=pot(),odds=toCall/(pt+toCall),r=Math.random();
-  const raiseTo=f=>Math.max(PK.curBet+PK.minRaise,PK.curBet+Math.round(pt*f/5)*5);
-  if(toCall===0){if(rel>1.45+st.tight*.3&&r<.4+st.aggr*.6)return{a:'raise',to:raiseTo(rel>2.2?.9:.55)};if(r<st.bluff)return{a:'raise',to:raiseTo(.5)};return{a:'check'}}
-  if(rel>1.95+st.tight*.3&&r<st.aggr)return{a:'raise',to:raiseTo(rel>2.6?1:.75)};
-  if(eq>=odds*st.callF||(toCall<=PK.bb&&r<st.sticky))return{a:'call'};
-  if(r<st.bluff*.5&&toCall<p.chips*.12)return{a:'raise',to:raiseTo(.7)};
+/*AI-BEGIN*/
+/* KI-Stufen: dieselbe Datei läuft im Spiel (index.html) und in der Simulation (sim/). */
+function makeAI(G){
+const {FULL,mkTeam,battle,pickTeam,eval5,combos,power}=G,rnd=G.rnd||Math.random;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=rnd()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+/* Stufen. it=Rechentiefe, noise=Schätzfehler, call=Mitgehschwelle (<1 = zu großzügig), vs=Wertwette ab Stärke, aggr/bluff/sticky=Spielweise,
+   poker=1: schätzt nur nach Pokerkombo statt nach echtem Kampf, sac/five/ord=Opfer-, Teamwahl- und Aufstellungsniveau, adapt=liest den Gegner */
+const LV={
+  1:{it:10,noise:.17,call:.62,vs:1.6,aggr:.2,bluff:.02,sticky:.7,poker:1,sac:0,five:0,ord:0,adapt:0,narrow:0,trap:0},
+  2:{it:12,noise:.13,call:.9,vs:1.25,aggr:.8,bluff:.34,sticky:.35,poker:1,sac:0,five:0,ord:0,adapt:0,narrow:0,trap:0},
+  3:{it:16,noise:.08,call:1.3,vs:1.55,aggr:.3,bluff:0,sticky:0,poker:0,sac:1,five:1,ord:0,adapt:0,narrow:1,trap:0},
+  4:{it:24,noise:.05,call:1.0,vs:1.3,aggr:.5,bluff:.1,sticky:.04,poker:0,sac:1,five:1,ord:1,adapt:0,narrow:1,trap:0},
+  5:{it:24,noise:.055,call:1.0,vs:1.2,aggr:.55,bluff:.14,sticky:0,poker:0,sac:1,five:1,ord:2,adapt:1,narrow:1,trap:.1},
+  6:{it:90,noise:.01,call:1.0,vs:1.15,aggr:.62,bluff:.2,sticky:0,poker:0,sac:1,five:1,ord:3,adapt:1,narrow:1,trap:.25}};
+const bestPoker=cs=>{let b=null,bs=-1;for(const ix of combos(cs.length)){const f=ix.map(i=>cs[i]),e=eval5(f);if(e.score>bs){bs=e.score;b=f}}return b};
+const pokerSc=cs=>cs.length>=5?eval5(bestPoker(cs)).score:0;
+function preSc(h){const r=h.map(c=>c.r).sort((a,b)=>b-a);let s=r[0]*3+r[1]*2+r[2];if(r[0]===r[1]||r[1]===r[2])s+=40;if(r[0]===r[1]&&r[1]===r[2])s+=100;if(h.every(c=>c.s===h[0].s))s+=12;return s}
+function strength(cs,board){return board.length>=3?pokerSc(cs.concat(board)):preSc(cs)}
+const sortedTeam=t=>t;                                           // mkTeam liefert die Teams schon nach Stärke geordnet
+function perms(a){if(a.length<=1)return[a];const o=[];a.forEach((x,i)=>perms(a.filter((_,j)=>j!==i)).forEach(p=>o.push([x,...p])));return o}
+const P5=perms([0,1,2,3,4]);
+function evalHand(cs,L){return L.poker?{score:pokerSc(cs)}:(()=>{const t=pickTeam(cs);return{score:t.b.score,team:t.team}})()}
+function duel(a,b,L){if(L.poker)return a.score>b.score?1:a.score<b.score?0:.5;const w=battle(a.team,b.team).w;return w===0?1:w<0?(a.score>b.score?1:a.score<b.score?0:.5):0}
+/* Gewinnchance: unbekannte Gegnerkarten und Board-Rest ziehen. narrow = Anteil der stärksten Gegnerhände, den wir noch für möglich halten */
+function equity(v,L,iters,narrow=1){
+  const known=new Set([...v.hole,...v.board,...v.discs].map(c=>c.id)),u=FULL.filter(c=>!known.has(c.id)),need=5-v.board.length,k=narrow<1?Math.min(4,Math.ceil(1/narrow)+1):1;let win=0;
+  for(let i=0;i<iters;i++){const d=shuf(u.slice());const b=v.board.concat(d.splice(0,need));
+    let oh=d.splice(0,v.oppN),cand=[oh];for(let j=1;j<k;j++)cand.push(d.splice(0,v.oppN));
+    if(k>1){cand.sort((x,y)=>strength(y,b)-strength(x,b));oh=cand[Math.min(cand.length-1,Math.floor(rnd()*cand.length*narrow))]}
+    win+=duel(evalHand(v.hole.concat(b),L),evalHand(oh.concat(b),L),L)}
+  return win/iters}
+/* Gegnerbild: wie oft gibt er gegen Einsätze auf, wie oft erhöht er */
+function newModel(){return{hands:0,faced:0,folds:0,bets:0,acts:0,sorted:0,lines:0,sd:0}}
+function foldRate(m){return m.faced>=4?m.folds/m.faced:.4}
+function decide(v,L,m){
+  const eq=clamp(equity(v,L,v.street==='pre'?Math.max(4,L.it>>1):L.it,L.narrow&&v.oppAggr?v.oppAggr:1)+(rnd()-.5)*2*L.noise);
+  const toCall=v.toCall,pt=v.pot,odds=toCall/(pt+toCall||1),rel=eq/.5,r=rnd(),fr=L.adapt?foldRate(m):.4,call=L.adapt&&m.acts>=8&&m.bets/m.acts>.55?L.call*.9:L.call;
+  const bl=L.bluff*(L.adapt?clamp(1+(fr-.4)*3,.3,2.6):1),vs=L.vs-(L.adapt&&fr<.3?.12:0),maxTo=v.myBet+v.myChips;
+  const rt=f=>Math.min(maxTo,Math.max(v.curBet+v.minRaise,v.curBet+Math.round(pt*f/5)*5));
+  const size=rel>1.7?(rnd()<.5?1:.75):rel>1.35?.65:.45;
+  if(toCall===0){
+    if(rel>vs){if(L.trap&&v.street!=='river'&&rel>1.8&&r<L.trap)return{a:'check'};if(r<.3+L.aggr*.7)return{a:'raise',to:rt(size)}}
+    if(r<bl*(v.ip?1.15:.85))return{a:'raise',to:rt(.5+rnd()*.3)};return{a:'check'}}
+  if(rel>vs+.35&&r<L.aggr)return{a:'raise',to:rt(rel>1.9?1:.8)};
+  if(eq>=odds*call||(toCall<=v.bb&&r<L.sticky))return{a:'call'};
+  if(r<bl*.5&&toCall<v.myChips*.15)return{a:'raise',to:rt(.75)};
   return{a:'fold'}}
-function aiDiscard(p){const known=new Set([...p.hole,...PK.board,...PK.players.filter(q=>q.disc).map(q=>q.disc)].map(c=>c.id));const u=FULL.filter(c=>!known.has(c.id));
-  let bi=0,bv=-1;p.hole.forEach((c,i)=>{const keep=p.hole.filter((_,j)=>j!==i);let v=0;for(let k=0;k<10;k++){const need=5-PK.board.length,ext=[];while(ext.length<need){const q=u[Math.random()*u.length|0];if(!ext.includes(q))ext.push(q)}v+=pickTeam([...keep,...PK.board,...ext]).pw}if(v>bv){bv=v;bi=i}});
-  p.disc=p.hole.splice(bi,1)[0]}
+/* Opfer: Stufe 0 gibt die schwächste Karte her, höhere Stufen testen, welche Hand das stärkste Team ergibt */
+function discard(v,L){const h=v.hole;
+  if(!L.sac){let bi=0;h.forEach((c,i)=>{if(c.r<h[bi].r)bi=i});return bi}
+  const known=new Set([...h,...v.board,...v.discs].map(c=>c.id)),u=FULL.filter(c=>!known.has(c.id)),need=5-v.board.length,n=L.it>20?10:5;let bi=0,bv=-1;
+  h.forEach((c,i)=>{const keep=h.filter((_,j)=>j!==i);let s=0;for(let k=0;k<n;k++){const ext=shuf(u.slice()).slice(0,need);s+=power(pickTeam(keep.concat(v.board,ext)))}if(s>bv){bv=s;bi=i}});return bi}
+function strongestFive(cards,L){if(!L.five){const f=bestPoker(cards);return f}let b=null,bp=-1;for(const ix of combos(cards.length)){const t=mkTeam(ix.map(i=>cards[i])),p=power(t);if(p>bp){bp=p;b=t}}return b.five}
+/* Aufstellung: Beide haben ihre fünf Karten offengelegt, die Reihenfolge der Bahnen ist noch geheim. Stufe 0 stellt nach Stärke auf.
+   Stufe 1 sucht die beste Antwort auf eine Stärke-Reihe, ab 2 mit Modell, wie oft der Gegner nach Stärke aufstellt, Stufe 3 würfelt zwischen gleich guten Reihen. */
+function chooseOrder(five,oppFive,L,m){const mine=mkTeam(five).team;if(!L.ord)return mine;const opp=mkTeam(oppFive).team;
+  const pS=L.ord===1?1:clamp(m&&m.lines>=3?m.sorted/m.lines:.85,.2,.98),vars=[[opp,pS]],nr=pS<.999?6:0;for(let i=0;i<nr;i++)vars.push([shuf(opp.slice()),(1-pS)/nr]);
+  const sc=P5.map(p=>{const o=p.map(i=>mine[i]);let s=0;for(const [T,w] of vars){const r=battle(o,T).w;s+=w*(r===0?1:r<0?.5:0)}return[s,o]});
+  let bs=-1;for(const x of sc)if(x[0]>bs)bs=x[0];
+  if(L.ord>=3){const top=sc.filter(x=>x[0]>=bs-.03);return top[rnd()*top.length|0][1]}
+  return sc.find(x=>x[0]>=bs-1e-9)[1]}
+return{LV,decide,discard,strongestFive,chooseOrder,newModel,equity,bestPoker,pokerSc}}
+/*AI-END*/
+const AIM=makeAI({FULL,mkTeam,battle,pickTeam,eval5,combos,power});
+function aiView(p){const P=PK.players,q=P.find(x=>x!==p&&!x.out&&!x.folded)||P.find(x=>x!==p),toCall=Math.max(0,PK.curBet-p.bet),big=toCall>0?toCall/Math.max(1,pot()-toCall):0;
+  return{hole:p.hole,board:PK.board,discs:P.filter(x=>x.disc).map(x=>x.disc),oppN:q.hole.length,pot:pot(),toCall,myChips:p.chips,myBet:p.bet,curBet:PK.curBet,minRaise:PK.minRaise,bb:PK.bb,street:PK.street,
+    ip:PK.street==='pre'?p.i!==PK.dealer:p.i===PK.dealer,oppAggr:toCall>0?(big>=1?.4:big>=.5?.55:.75):1}}
+const aiLv=p=>AIM.LV[AVA[p.aid].lv];
+function aiDecide(p){return AIM.decide(aiView(p),aiLv(p),p.model)}
+function aiDiscard(p){const bi=AIM.discard(aiView(p),aiLv(p));p.disc=p.hole.splice(bi,1)[0]}
+/* Gegnerbild der KI: beobachtet, wie du dich gegen Einsätze verhältst */
+function aiLearn(actor,a,toCall){PK.players.forEach(o=>{if(o===actor||o.human||!o.model)return;const m=o.model;if(toCall>0){m.faced++;if(a==='fold')m.folds++}m.acts++;if(a==='raise')m.bets++})}
 
 /* ---------- Darstellung ---------- */
 function synOf(f){if(!f)return null;const x=[];if(f.realm&&(f.realm[0]||f.realm[1]))x.push({c:PS[f.s].col,t:'+'+f.realm[0],n:PS[f.s].pn});if(f.rage)x.push({c:PS[3].col,t:'+'+f.rage+'/Rd',n:'Blutrausch'});
@@ -1566,14 +1228,14 @@ function pkRender(){if(!PK||mode!=='poker')return;const P=PK.players,me=P[0],W=$
   const show=PK.street==='show',hi=PK.hi,fresh=Date.now()-PK.dealt<600;
   const rk=rankOf(PRO.fame),S0=STATIONS[PK.st||0];
   $('#pk-top').innerHTML=`<div class="tb-l"><span class="tb-st">${S0.n}</span><span>Hand ${PK.hand} · Blinds ${PK.bb/2}/${PK.bb}</span></div>
-    <div class="tb-r"><button type="button" class="chip tb-rank" data-pa="camp" title="Kampagne"><b>${rk.n}</b><i style="--p:${rk.p}"></i></button><button type="button" class="chip" data-pa="stats" data-tab="live">Stats</button><button type="button" class="chip" data-pa="coll">${Object.keys(PRO.coll).length}/52</button><button type="button" class="chip" data-pa="snd" aria-label="Ton">${SFX.on?'Ton':'Stumm'}</button><button type="button" class="chip" data-pa="help">?</button></div>`;
+    <div class="tb-r"><button type="button" class="chip" data-pa="camp" title="Könnerwert (Elo)">K&nbsp;<b>${PRO.elo||1000}</b></button><button type="button" class="chip tb-rank" data-pa="camp" title="Kampagne"><b>${rk.n}</b><i style="--p:${rk.p}"></i></button><button type="button" class="chip" data-pa="stats" data-tab="live">Stats</button><button type="button" class="chip" data-pa="coll">${Object.keys(PRO.coll).length}/52</button><button type="button" class="chip" data-pa="snd" aria-label="Ton">${SFX.on?'Ton':'Stumm'}</button><button type="button" class="chip" data-pa="help">?</button></div>`;
   $('#pk-seats').innerHTML=P.slice(1).map(p=>{const turn=PK.phase==='bet'&&(PK.thinking===p.i||(PK.toAct===p.i&&!PK.waiting));
     const reveal=show&&!p.folded&&!p.out;
     let cards=reveal?p.hole.map(c=>pcard(c,22,{sm:1,hi:hi&&hi.has(c.id),dim:hi&&!hi.has(c.id)})).join(''):'';
     if(p.disc&&!p.out)cards+=`<span class="disc" title="Geopfert: ${RN(p.disc.r)}, ${PST[p.disc.r][2]}">${pcard(p.disc,22,{sm:1})}</span>`;
     const act=p.out?'Ausgeschieden':PK.thinking===p.i?'Überlegt …':show&&p.combo?plain(comboLabel(p.combo))+(p.wins!=null?` · ${p.wins} Siege`:''):p.last;
     return`<div class="seat ${turn?'turn':''} ${p.folded&&!p.out?'fold':''} ${p.out?'out':''} ${PK.winners.includes(p.i)?'win':''}">
-      ${PK.dealer===p.i?'<span class="dlr">G</span>':''}<div class="seat-h"><div class="av"><img src="${AVART[p.aid]}" alt=""></div><div class="sw"><div class="sn" title="${p.name}, ${AVA[p.aid].tag}">${AVA[p.aid].short}</div><span class="gold">${p.chips}</span></div></div>
+      ${PK.dealer===p.i?'<span class="dlr">G</span>':''}<div class="seat-h"><div class="av"><img src="${AVART[p.aid]}" alt=""></div><div class="sw"><div class="sn" title="${p.name}, ${AVA[p.aid].tag}">${AVA[p.aid].short}</div>${(()=>{const R=SESS&&SESS.opp[p.aid];return R&&R.hands>=6?`<div class="tell" title="Deine Lesart nach ${R.hands} Händen">${oppType(R)}</div>`:`<div class="tell">${AVA[p.aid].tag}</div>`})()}<span class="gold">${p.chips}</span></div></div>
       <div class="srow">${cards}<div class="sact">${act||'&nbsp;'}</div></div>${p.bet>0?`<div class="sbet"><span class="gold">${p.bet}</span></div>`:''}</div>`}).join('');
   $('#pk-pot').innerHTML=`<span><small>Pot</small><span class="gold">${pot()}</span></span>${PK.curBet>0&&PK.phase==='bet'?`<span><small>Zu setzen</small><span class="gold">${PK.curBet}</span></span>`:''}`;
   $('#pk-board').innerHTML=[0,1,2,3,4].map(i=>{const c=PK.board[i];if(!c)return pcard(null,bw);
@@ -1592,14 +1254,19 @@ function pkRender(){if(!PK||mode!=='poker')return;const P=PK.players,me=P[0],W=$
   const info=`<div class="pk-info">${PK.dealer===0?'<span class="dlr" style="position:static">G</span>':''}<span>Dein Gold</span><span class="gold">${me.chips}</span>${me.bet>0?`<span>Einsatz</span><span class="gold">${me.bet}</span>`:''}${me.disc?`<span class="disc" title="Geopfert">${pcard(me.disc,22,{sm:1})}</span>`:''}</div>`;
   if(PK.phase==='lineup'&&PK.waiting){const cards=[...me.hole,...PK.board],sel=new Set(PK.lineup),lw=Math.max(36,Math.min(62,Math.floor((W-32-24)/7)));
     const pick=cards.map(c=>`<button type="button" data-pa="lu" data-c="${c.id}" class="lu ${sel.has(c.id)?'on':''}" aria-pressed="${sel.has(c.id)}">${tileHTML(c,baseAtk(c),baseHp(c),lw)}</button>`).join('');
-    let prev;if(sel.size===5){const t=teamOf(PK.lineup.map(id=>CARDBY[id])),tw2=Math.max(40,Math.min(62,Math.floor((W-32-16)/5)));
-      const ot=orderTeam(t.team,PK.order);
-      prev=`<div class="combo">${comboLabel(t.b)}</div><div class="tm-h">Schlachtreihe · ${t.team.reduce((q,f)=>q+f.atk,0)} Angriff / ${t.team.reduce((q,f)=>q+f.hp,0)} Leben</div>
-      <div class="ord-row">${ot.map((f,i)=>`<button type="button" class="ord ${PK.ordSel===f.c.id?'sel':''}" data-pa="ord" data-c="${f.c.id}" aria-label="Bahn ${i+1}: ${RN(f.r)}"><span class="ord-n">${i+1}</span>${tileHTML(f.c,f.atk,f.hp,tw2,{f})}<span class="ord-ab">${PST[f.r][2]}</span></button>`).join('')}</div>
-      <div class="tm-n">${PK.ordSel?'Jetzt die Karte antippen, mit der sie tauschen soll.':'Tippe zwei Karten an, um ihre Bahnen zu tauschen. Gegner stellen ihre stärkste Karte nach links.'} ${PK.order?'<button type="button" class="chip" data-pa="ordreset">Nach Stärke</button>':''}</div>
-      ${synChips({...t,team:ot})}`}
+    let prev;if(sel.size===5){const t=teamOf(PK.lineup.map(id=>CARDBY[id]));
+      prev=`<div class="combo">${comboLabel(t.b)}</div><div class="tm-h">Dein Team · ${t.team.reduce((q,f)=>q+f.atk,0)} Angriff / ${t.team.reduce((q,f)=>q+f.hp,0)} Leben</div>
+      <div class="tm-n">Erst legt ihr beide die fünf Karten offen. Danach stellt ihr die Reihenfolge der Bahnen gleichzeitig und verdeckt auf.</div>
+      ${synChips(t)}`}
     else prev=`<div class="tm-n">Noch ${5-sel.size} Karte${5-sel.size>1?'n':''} wählen.</div>`;
     $('#pk-me').innerHTML=`${info}<div class="tm-h">Deine 7 Karten · tippe, um sie ins Team zu nehmen</div><div class="lu-row">${pick}</div>${prev}`;pkCtrl();return}
+  if(PK.phase==='order'&&PK.waiting){const t=teamOf(PK.lineup.map(id=>CARDBY[id])),ot=orderTeam(t.team,PK.order),q=PK.players[1],oq=PK.oppRow,tw2=Math.max(40,Math.min(62,Math.floor((W-32-16)/5)));
+    const w=battle(ot,oq.team).w,vd=w===0?['pos','Gewinnt gegen eine Stärke-Reihe']:w===1?['neg','Verliert gegen eine Stärke-Reihe']:['','Remis gegen eine Stärke-Reihe'];
+    $('#pk-me').innerHTML=`${info}<div class="tm-h">${q.name} · ${plain(comboLabel(oq.b))} · Reihenfolge verdeckt</div>
+      <div class="ord-row">${oq.team.map(f=>`<span class="ord foe">${tileHTML(f.c,f.atk,f.hp,tw2,{f})}<span class="ord-ab">${PST[f.r][2]}</span></span>`).join('')}</div>
+      <div class="combo">${comboLabel(t.b)}</div><div class="tm-h">Deine Bahnen · jede Karte kämpft gegen die darüber</div>
+      <div class="ord-row">${ot.map((f,i)=>`<button type="button" class="ord ${PK.ordSel===f.c.id?'sel':''}" data-pa="ord" data-c="${f.c.id}" aria-label="Bahn ${i+1}: ${RN(f.r)}"><span class="ord-n">${i+1}</span>${tileHTML(f.c,f.atk,f.hp,tw2,{f})}<span class="ord-ab">${PST[f.r][2]}</span></button>`).join('')}</div>
+      <div class="tm-n"><b class="${vd[0]}">${vd[1]}.</b> Die Reihe oben ist nur nach Stärke sortiert gezeigt, der Gegner kann sie anders legen. ${PK.ordSel?'Jetzt die Karte antippen, mit der sie tauschen soll.':'Tippe zwei Karten an, um ihre Bahnen zu tauschen.'}</div>${synChips({...t,team:ot})}`;pkCtrl();return}
   if(compact){const ta=e.team.reduce((s,f)=>s+f.atk,0),th=e.team.reduce((s,f)=>s+f.hp,0);
     $('#pk-me').innerHTML=`${info}<div class="combo">${lbl}</div>
     <div class="mrow"><div class="mcol"><div class="tm-h">${disc?'Opfern':'Hand'}</div><div class="pk-hole">${holes}</div></div>
@@ -1612,10 +1279,11 @@ function legendHTML(){const P=PK.players,me=P[0],show=PK.street==='show';
   const rs=[...new Set(cards.map(c=>c.r))].sort((a,b)=>b-a),ss=[...new Set(cards.map(c=>c.s))].sort();
   return rs.map(r=>`<span class="lg"><i>${r}</i><b>${PST[r][2]}</b> ${PSH[r]}</span>`).join('')+ss.map(x=>{const q=PS[x];return`<span class="lg" style="--sc:${q.col}"><span class="lg-i">${q.icon}</span><b>${q.pn}</b> ${q.ptx} <i>(${q.strat})</i></span>`}).join('')}
 function pkCtrl(){const el=$('#pk-ctrl'),me=PK.players[0];
-  if(PK.waiting&&(PK.phase==='lineup'||PK.phase==='discard'||(PK.phase==='bet'&&PK.toAct===0)))requestAnimationFrame(()=>{const pe=$('#poker');pe.scrollTop=pe.scrollHeight});
+  if(PK.waiting&&(PK.phase==='lineup'||PK.phase==='order'||PK.phase==='discard'||(PK.phase==='bet'&&PK.toAct===0)))requestAnimationFrame(()=>{const pe=$('#poker');pe.scrollTop=pe.scrollHeight});
   if(PK.phase==='over'){el.innerHTML=`<button type="button" class="btn primary" data-pa="new">Neues Spiel</button>`;return}
   if(PK.phase==='done'){el.innerHTML=`<button type="button" class="btn" data-pa="stats" data-tab="hand">Fazit</button><button type="button" class="btn gold" data-pa="next">Nächste Hand</button>`;return}
-  if(PK.phase==='lineup'&&PK.waiting){el.innerHTML=`<button type="button" class="btn" data-pa="luauto">Stärkstes</button><button type="button" class="btn" data-pa="lupoker">Beste Kombo</button><button type="button" class="btn gold" data-pa="lugo" ${PK.lineup.length===5?'':'disabled'}>Kämpfen</button>`;return}
+  if(PK.phase==='order'&&PK.waiting){el.innerHTML=`<button type="button" class="btn" data-pa="ordreset">Nach Stärke</button><button type="button" class="btn gold" data-pa="ordgo">Kämpfen</button>`;return}
+  if(PK.phase==='lineup'&&PK.waiting){el.innerHTML=`<button type="button" class="btn" data-pa="luauto">Stärkstes</button><button type="button" class="btn" data-pa="lupoker">Beste Kombo</button><button type="button" class="btn gold" data-pa="lugo" ${PK.lineup.length===5?'':'disabled'}>Team zeigen</button>`;return}
   if(PK.phase==='discard'&&PK.waiting){el.innerHTML=PK.selDisc==null?`<p class="msg">Tippe die Karte an, die du opfern willst.</p>`:
     `<button type="button" class="btn red" data-pa="disc">${RN(me.hole[PK.selDisc].r)} opfern</button>`;return}
   if(!(PK.phase==='bet'&&PK.waiting&&PK.toAct===0)){el.innerHTML=`<p class="msg">${PK.street==='show'?'Die Teams kämpfen …':me.folded?'Du schaust zu, bis die Hand vorbei ist.':'Warte auf die anderen …'}</p>`;return}
@@ -1630,23 +1298,34 @@ function pkCtrl(){const el=$('#pk-ctrl'),me=PK.players[0];
     <button type="button" class="btn" data-pa="${toCall?'call':'check'}">${toCall?(toCall>=me.chips?'Alles · '+me.chips:'Mitgehen · '+toCall):'Schieben'}</button>
     ${maxTo>PK.curBet&&me.chips>toCall?`<button type="button" class="btn gold" data-pa="raise">${PK.curBet?'Erhöhen':'Setzen'}</button>`:''}`}
 function pkHuman(a,to){if(!PK.waiting||PK.toAct!==0)return;const me=PK.players[0];stDecide();PK.waiting=false;PK.raise=null;pkApply(me,a,to);PK.toAct=nextIdx(0);pkRender();pkRun()}
+/* Könnerwert (Elo): Sieg gegen stärkere Gegner zählt mehr. Dazu die Analyse: wie sauber hast du gespielt, wie viel war Glück */
+function eloApply(win){const opp=AVA[STATIONS[PK.st||0].opp[0]],e0=PRO.elo||1000,ex=1/(1+Math.pow(10,(opp.elo-e0)/400)),K=(PRO.duels||0)<8?40:24,d=Math.round(K*((win?1:0)-ex));PRO.elo=e0+d;PRO.duels=(PRO.duels||0)+1;PRO.eloBest=Math.max(PRO.eloBest||0,PRO.elo);return{d,from:e0,to:PRO.elo,opp}}
+function skillPanel(sk){const A=SESS&&SESS.hands.length?sessAgg():null;if(!A)return'';const dec=A.good+A.bad,acc=dec?Math.round(A.good/dec*100):null;
+  const mm=PK.players[1]&&PK.players[1].model,sorted=mm&&mm.lines>=3?mm.sorted/mm.lines:null;
+  const tip=sorted!=null&&sorted>.75&&sk.opp.lv>=4?'Du stellst fast immer nach Stärke auf. Gegner ab Ser Odo stellen genau dagegen auf. Probiere gezielt andere Bahnen.':sorted!=null&&sorted<.3&&sk.opp.lv>=5?'Deine Aufstellungen sind schwer zu lesen. Das ist gegen die stärksten Gegner dein Vorteil.':acc!=null&&acc<60?'Zu viele Entscheidungen waren rechnerisch schwach. Schau vor dem Mitgehen auf Gewinnchance und Pot-Odds.':A.luckN&&A.luck<=-1?'Du hattest Pech bei den Showdowns. Das Ergebnis sagt weniger über dein Spiel als die Genauigkeit.':A.luckN&&A.luck>=1.5?'Das Glück stand auf deiner Seite. Prüfe, ob dein Spiel auch ohne es getragen hätte.':'Weiter so. Jede Stufe der Leiter bestraft eine andere Schwäche.';
+  return`<div class="skp"><div class="skp-r"><b>Könnerwert</b><span>${sk.from} → <b class="${sk.d>=0?'pos':'neg'}">${sk.to}</b> <i class="${sk.d>=0?'pos':'neg'}">${sk.d>=0?'+':'−'}${Math.abs(sk.d)}</i></span></div>
+    <div class="kpis">${kpi(acc==null?'–':acc+'%','Genauigkeit',`${A.good} von ${dec} Entscheidungen solide`)}${kpi(A.luckN?(A.luck>0?'+':'')+A.luck.toFixed(1):'–','Glück','Showdowns über Erwartung')}${kpi(sorted==null?'–':Math.round(sorted*100)+'%','Nach Stärke gestellt','dein Aufstellungsmuster')}</div>
+    <p class="st-note">${tip}</p></div>`}
 function pkOverScreen(){const me=PK.players[0],win=!me.out,st=PK.st||0;
-  if(PK.settled){pkCampaign();return}PK.settled=1;
+  if(PK.settled){pkCampaign();return}PK.settled=1;const sk=eloApply(win);
   if(win){const first=!PRO.cleared.includes(st);const fame=first?STATIONS[st].fame:Math.round(STATIONS[st].fame/3);const chest=[0,1,2].map(i=>rollLoot(i===0?1:.15));
     if(first)PRO.cleared.push(st);if(st+1<STATIONS.length&&PRO.station<=st)PRO.station=st+1;const up=addFame(fame);chest.forEach(l=>addLoot(l));proSave();SFX.win();
-    showOv(`<div class="win"><div class="win-k">${first?'Station erobert':'Station erneut geplündert'}</div><h2 class="win-t">${STATIONS[st].n}</h2>
-      <p class="win-sub">Nach ${PK.hand} Händen gehört alles Gold dir.</p><div class="win-f">+${fame} Ruhm${up?` · Neuer Rang: <b>${up}</b>`:''}</div>
+    showOv(`<div class="win"><div class="win-k">${first?'Duell gewonnen':'Duell erneut gewonnen'}</div><h2 class="win-t">${STATIONS[st].n}</h2>
+      <p class="win-sub">Nach ${PK.hand} Händen gehört alles Gold dir.</p><div class="win-f">+${fame} Ruhm${up?` · Neuer Rang: <b>${up}</b>`:''}</div>${skillPanel(sk)}
       <div class="win-k">Schatztruhe</div><div class="loot">${chest.map((l,i)=>lootHTML(l,i)).join('')}</div>
       <div class="pv-act"><button type="button" class="btn" data-pa="stats" data-tab="sess">Session-Statistik</button><button type="button" class="btn gold" data-pa="camp">${st+1<STATIONS.length?'Weiter zur nächsten Station':'Zur Kampagne'}</button></div></div>`);flipLoot()}
-  else{SFX.lose();showOv(`<div class="end lose"><h2>Pleite</h2><p>Nach ${PK.hand} Händen ist dein Beutel leer. ${STATIONS[st].n} bleibt in fremder Hand.</p><button type="button" class="btn" data-pa="stats" data-tab="sess">Session-Statistik</button><button type="button" class="btn primary" data-pa="retry">Nochmal antreten</button><button type="button" class="btn" data-pa="camp">Zur Kampagne</button></div>`)}}
+  else{SFX.lose();showOv(`<div class="end lose"><h2>Besiegt</h2><p>Nach ${PK.hand} Händen ist dein Beutel leer. ${AVA[STATIONS[st].opp[0]].short} hat dein Gold.</p>${skillPanel(sk)}<button type="button" class="btn" data-pa="stats" data-tab="sess">Session-Statistik</button><button type="button" class="btn primary" data-pa="retry">Nochmal antreten</button><button type="button" class="btn" data-pa="camp">Zur Kampagne</button></div>`)}}
 function pkInfo(id){const c=CARDBY[id];if(!c)return;const st=PST[c.r],s=PS[c.s];
   showOv(`<div class="pv">${pcard(c,Math.min(300,innerWidth*.8,innerHeight*.5),{plate:1})}
     <ul class="kws"><li><b>${RN(c.r)}</b> · Stärke ${c.r} · ${baseAtk(c)} Angriff, ${baseHp(c)} Leben ohne Boni</li><li><b style="color:${s.col}">${s.n}</b> lohnt sich für: ${s.strat}</li></ul>
     ${wkSection('pk-'+c.r+'-'+c.s)}<div class="pv-act"><button type="button" class="btn" data-act="close">Schließen</button></div></div>`);WK.reopen=()=>pkInfo(id)}
 function pkHelp(){showOv(`<div class="help"><h3>Rabenblatt</h3>
-  <p>Wie Texas Hold'em für bis zu sechs. Jeder bekommt <b>drei Handkarten</b>. Nach der ersten Setzrunde liegt der <b>Flop</b>, dann <b>opfert jeder offen eine Handkarte</b>. Danach folgen Turn und River.</p>
-  <p><b>Der Showdown ist ein Kampf.</b> Du stellst ein Team aus 5 deiner 7 Karten auf. Die Teams stellen sich nach Stärke auf, jede Karte kämpft gegen die gegenüber. Es gibt keine Würfel: dieselben Karten ergeben immer denselben Kampf. Bei mehr als zwei Teams kämpft jedes gegen jedes, die meisten Siege holen den Pot. Bei Gleichstand entscheidet die Kombo.</p>
-  <p><b>Aufstellung:</b> Vor dem Kampf wählst du selbst 5 deiner 7 Karten. Die Pokerkombo dieser fünf ist das Fundament: Sie gibt allen fünf Karten einen Bonus, von +5/+5 beim Paar bis +55/+55 bei der Drachenkrone. Eine höhere Kombo gewinnt fast immer; eine Stufe darunter gewinnt nur mit einem deutlich besseren Team (etwa jeder zehnte Kampf), zwei Stufen darunter praktisch nie. Die Reiche geben zusätzliche Boni für ihre Strategie.</p>
+  <p>Ein Duell wie Texas Hold'em, nur dass der Showdown ein Kampf ist. Jeder bekommt <b>drei Handkarten</b>. Nach der ersten Setzrunde liegt der <b>Flop</b>, dann <b>opfert jeder offen eine Handkarte</b>. Danach folgen Turn und River. Wer am Ende alles Gold hat, gewinnt das Duell.</p>
+  <p><b>Der Showdown ist ein Kampf.</b> Du stellst ein Team aus 5 deiner 7 Karten auf und legst die Reihenfolge der fünf Bahnen fest. Jede Karte kämpft gegen die gegenüber. Beide stellen gleichzeitig und verdeckt auf. Es gibt keine Würfel: dieselben zwei Reihen ergeben immer denselben Kampf. Bei Gleichstand entscheidet die Kombo.</p>
+  <p><b>Warum die Bahnen zählen:</b> Gegen eine feste Gegnerreihe lässt sich in etwa jedem dritten Kampf ein Verlierer durch bloßes Umstellen zum Sieger machen. Wer immer nach Stärke aufstellt, ist lesbar. Die stärkeren Gegner nutzen das.</p>
+  <p><b>Dreifaches Schicksal:</b> Geht vor dem River jemand all-in, werden die restlichen Karten dreimal gelegt, jedes Mal mit eigenem Kampf, und der Pot wird gedrittelt. So entscheidet ein einzelner Münzwurf nicht mehr ein ganzes Duell.</p>
+  <p><b>Können statt Glück:</b> Die Gegner der Leiter sind von schwach bis meisterlich gestuft und jeder hat eine andere Schwäche. Dein <b>Könnerwert</b> steigt, wenn du stärkere Gegner schlägst. Nach jedem Duell siehst du deine Genauigkeit und wie viel Glück im Spiel war.</p>
+  <p><b>Aufstellung:</b> Die Pokerkombo deiner fünf Karten ist das Fundament: Sie gibt allen fünf Karten einen Bonus, von +5/+5 beim Paar bis +55/+55 bei der Drachenkrone. Eine höhere Kombo gewinnt meist; eine Stufe darunter gewinnt nur mit einem deutlich besseren Team, zwei Stufen darunter praktisch nie. Die Reiche geben zusätzliche Boni für ihre Strategie.</p>
   <p>Ablauf je Runde: Blutrausch, dann schlagen Erstschlag-Karten zu, dann alle anderen gleichzeitig, dann Regeneration und Gift. Nach 8 Runden gewinnt das Team mit mehr übrigen Leben.</p>
   <h3>Kombos & Formation</h3>
   <ul class="rank-list">${CAT.map((c,i)=>i).reverse().map(i=>`<li><span>${i+1}</span><div><b>${CAT[i]}</b> – ${CATX[i]}<br>Formation: ${FORM[i]}</div></li>`).join('')}</ul>
@@ -1656,16 +1335,13 @@ function pkHelp(){showOv(`<div class="help"><h3>Rabenblatt</h3>
   <p>Jedes Reich belohnt eine andere Strategie. Alle vier sind per Simulation auf etwa gleichen Durchschnittswert balanciert, keines dominiert.</p><ul class="rank-list">${PS.map(s=>`<li><span style="color:${s.col};width:1.2em;display:block">${s.icon}</span><div><b>${s.n}</b> · Strategie: ${s.strat}<br><b>${s.pn}:</b> ${s.ptx}</div></li>`).join('')}</ul>
   <p>Jede Hand kostet eine kleine Ante. Die Blinds steigen alle acht Hände.</p>
   <button type="button" class="btn" data-act="close">Verstanden</button></div>`)}
-function setMode(m){mode=m;document.querySelectorAll('#nav button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m));
-  $('#app').hidden=m!=='duel';$('#poker').hidden=m!=='poker';if(!BT)closeOv();
-  if(m==='poker'){if(!PK){PK=null;pkCampaign();return}else{pkRender();if(PK.phase==='over')pkOverScreen();else if(!PK.waiting&&(PK.phase==='bet'||PK.phase==='discard'))pkRun()}}else{layout();render();if(S.over)showEnd()}}
-document.addEventListener('click',e=>{const t=e.target;const md=t.closest('[data-mode]');if(md){if(md.dataset.mode!==mode&&!BT)setMode(md.dataset.mode);return}
-  const bt=t.closest('[data-bt]');if(bt&&BT){const k=bt.dataset.bt;k==='skip'?BT.skip():k==='fast'?BT.fast():BT.close();return}
+document.addEventListener('click',e=>{const t=e.target;  const bt=t.closest('[data-bt]');if(bt&&BT){const k=bt.dataset.bt;k==='skip'?BT.skip():k==='fast'?BT.fast():BT.close();return}
   const b=t.closest('[data-pa]');if(!b||b.disabled)return;const a=b.dataset.pa,me=PK&&PK.players[0];
   switch(a){
     case'help':pkHelp();break;
     case'info':pkInfo(b.dataset.c);break;
     case'new':pkNew();break;
+    case'start':closeOv();pkStartHand();break;
     case'camp':pkCampaign();break;
     case'go':pkNew(+b.dataset.st);break;
     case'retry':pkNew(PK.st);break;
@@ -1689,7 +1365,8 @@ document.addEventListener('click',e=>{const t=e.target;const md=t.closest('[data
     case'lu':{PK.order=null;PK.ordSel=null;const id=b.dataset.c,i=PK.lineup.indexOf(id);if(i>=0)PK.lineup.splice(i,1);else if(PK.lineup.length<5)PK.lineup.push(id);pkRender();break}
     case'luauto':PK.order=null;PK.ordSel=null;PK.lineup=strongest([...me.hole,...PK.board]).five.map(c=>c.id);pkRender();break;
     case'lupoker':PK.order=null;PK.ordSel=null;PK.lineup=bestPokerFive([...me.hole,...PK.board]).map(c=>c.id);pkRender();break;
-    case'lugo':if(PK.lineup.length===5&&PK.phase==='lineup')pkBattle();break;
+    case'lugo':if(PK.lineup.length===5&&PK.phase==='lineup')pkConfirmFive();break;
+    case'ordgo':if(PK.phase==='order'&&PK.waiting)pkBattle();break;
     case'disc':if(PK.selDisc!=null){const c=me.hole.splice(PK.selDisc,1)[0];me.disc=c;PK.selDisc=null;PK.waiting=false;PK.log=`Du opferst ${RN(c.r)} aus ${PS[c.s].n}.`;if(PK.cur)PK.cur.disc=c.id;setTimeout(()=>stStreetEq('flop'),0);pkRender();pkRun()}break}});
 addEventListener('resize',()=>{if(mode==='poker')pkRender()});
 
@@ -1698,14 +1375,15 @@ addEventListener('resize',()=>{if(mode==='poker')pkRender()});
    FORTSCHRITT · KAMPAGNE · BEUTE · INSZENIERUNG
    ===================================================================== */
 const STATIONS=[
-  {n:'Die Rattenschenke',d:'Trinker und Tagediebe. Kleine Einsätze, viel Geschrei.',opp:[3,1,2],bb:10,noise:.3,fame:150},
-  {n:'Das Söldnerlager',d:'Wer hier verliert, verliert auch die Stiefel.',opp:[1,3,4,5],bb:20,noise:.18,fame:300},
-  {n:'Die Hexenfeste',d:'Grauweid lädt zum Spiel. Niemand lehnt ab.',opp:[2,4,5,3,1],bb:20,noise:.1,fame:500},
-  {n:'Der Thronsaal',d:'Ritter, Mörder, Höflinge. Alle spielen falsch.',opp:[4,5,1,2,3],bb:30,noise:.05,fame:800},
-  {n:'Tafel des Hohlen Königs',d:'Der letzte Tisch. Der König spielt selbst.',opp:[6,5,4,2,1],bb:40,noise:0,fame:1500}];
+  {n:'Die Rattenschenke',d:'Gerrit Halbhand ruft alles und sieht nur Pokerhände. Der perfekte Lehrmeister.',opp:[3],bb:10,stack:1500,fame:150},
+  {n:'Das Söldnerlager',d:'Vargo Rotzahn drückt bei jeder Gelegenheit. Wer Nerven hat, nimmt ihm das Gold ab.',opp:[1],bb:10,stack:1500,fame:300},
+  {n:'Die Hexenfeste',d:'Mutter Grauweid spielt wenig und stark. Lerne, wann sie wirklich etwas hat.',opp:[2],bb:10,stack:1500,fame:500},
+  {n:'Der Thronsaal',d:'Ser Odo rechnet sauber. Ohne Plan und Lesart verlierst du hier.',opp:[4],bb:10,stack:1500,fame:800},
+  {n:'Die Schattengasse',d:'Ysa liest dein Muster, auch bei der Aufstellung. Wer berechenbar ist, zahlt.',opp:[5],bb:10,stack:1500,fame:1200},
+  {n:'Tafel des Hohlen Königs',d:'Der Meister. Er passt sich an und würfelt seine Aufstellung. Ihn zu schlagen heißt, das Spiel zu beherrschen.',opp:[6],bb:10,stack:1500,fame:2000}];
 const RANKS=[[0,'Bettler'],[100,'Tagelöhner'],[300,'Söldner'],[700,'Hauptmann'],[1400,'Ritter'],[2500,'Fürst'],[4000,'Aschenkönig']];
 function rankOf(f){let i=0;while(i+1<RANKS.length&&f>=RANKS[i+1][0])i++;const lo=RANKS[i][0],hi=RANKS[i+1]?RANKS[i+1][0]:lo;return{n:RANKS[i][1],i,p:hi>lo?Math.min(1,(f-lo)/(hi-lo)):1,next:RANKS[i+1]?RANKS[i+1][1]:null,need:hi-f}}
-let PRO={fame:0,coll:{},station:0,cleared:[],wins:0};let PROREF=null,proT=null,proBusy=false;
+let PRO={fame:0,coll:{},station:0,cleared:[],wins:0,elo:1000,duels:0};let PROREF=null,proT=null,proBusy=false;
 function proSave(){clearTimeout(proT);proT=setTimeout(async()=>{try{localStorage.setItem('rb_pro',JSON.stringify(PRO))}catch(_){}if(PROREF&&!proBusy){proBusy=true;try{await PROREF.set(JSON.parse(JSON.stringify(PRO)))}catch(_){}proBusy=false}},700)}
 function addFame(n){const a=rankOf(PRO.fame).i;PRO.fame+=Math.round(n);const b=rankOf(PRO.fame);return b.i>a?b.n:null}
 function rollLoot(foilChance,from){const pool=from&&from.length?from:FULL;const c=pool[Math.random()*pool.length|0];return{id:c.id,foil:Math.random()<foilChance}}
@@ -1732,7 +1410,7 @@ function pkBounty(p){addFame(50);proSave();SFX.boom();const b=$('#banner');b.inn
 function pkCampaign(){const rk=rankOf(PRO.fame);
   showOv(`<div class="camp"><div class="win-k">Kampagne</div><h2 class="win-t">Rabenblatt</h2>
     <div class="rk"><div class="rk-n"><b>${rk.n}</b><span>${PRO.fame} Ruhm${rk.next?` · noch ${rk.need} bis ${rk.next}`:''}</span></div><div class="rk-bar"><i style="width:${rk.p*100}%"></i></div></div>
-    <ol class="st-list">${STATIONS.map((x,i)=>{const done=PRO.cleared.includes(i),open=i<=PRO.station;return`<li class="${done?'done':''} ${open?'':'locked'}"><span class="st-no">${i+1}</span><div class="st-tx"><b>${x.n}</b><small>${x.d}</small>
+    <ol class="st-list">${STATIONS.map((x,i)=>{const done=PRO.cleared.includes(i),open=i<=PRO.station;return`<li class="${done?'done':''} ${open?'':'locked'}"><span class="st-no">${i+1}</span><div class="st-tx"><b>${x.n}</b><small>${x.d}</small><small class="st-ap">${AVA[x.opp[0]].tag} · Wertung ${AVA[x.opp[0]].elo}</small>
       <span class="st-av">${x.opp.map(a=>`<img src="${AVART[a]}" alt="${AVA[a].name}" title="${AVA[a].name}">`).join('')}</span></div>
       ${open?`<button type="button" class="btn ${done?'':'gold'}" data-pa="go" data-st="${i}">${done?'Nochmal':'Antreten'}</button>`:`<span class="st-lock">gesperrt</span>`}</li>`}).join('')}</ol>
     <div class="pv-act"><button type="button" class="btn" data-pa="stats" data-tab="sess">Statistik</button><button type="button" class="btn" data-pa="coll">Sammlung · ${Object.keys(PRO.coll).length}/52</button>${PK&&PK.phase!=='over'?'<button type="button" class="btn" data-act="close">Zurück zum Tisch</button>':''}</div></div>`)}
@@ -1887,20 +1565,15 @@ function hudHTML(toCall){if(PRO.hud===false||!myLive())return'';const eq=liveEq(
    ===================================================================== */
 const WK_BASE='Classic 1990s fantasy trading card illustration, hand-painted oil and gouache on board, visible brushstrokes, rich detail, dramatic chiaroscuro lighting, gritty dark medieval world, no text, no border, no frame, portrait 4:5.';
 const WK_SET=['radiant golden backlight, white marble cathedral ruins, holy, bright luminous palette','erupting volcano, rivers of lava, falling ash, red and orange palette','frozen mountains, aurora borealis, blizzard, icy blue palette','horror, blood-red moon over a rotting swamp, gallows and bones, black and crimson palette, deeply unsettling'];
-const WK_DUEL_SET='grim gothic dark fantasy, candlelit crypts and moonlit graveyards';
 const WK_CR={2:'a swarm of giant plague rats with red eyes, one huge rat in front',3:'a monstrous carrion crow perched on a gallows',4:'a massive scarred wild boar with bone-white tusks, charging',5:'a huge grey dire wolf howling on a rock',6:'a gaunt crouching ghoul with long claws and glowing eyes',7:'a griffin rearing with wings spread wide',8:'a hulking troll with a tree-trunk club',9:'a wingless serpentine dragon coiling around rocks',10:'a colossal giant towering over a tiny castle',11:'a manticore with lion body, bat wings and scorpion tail',12:'a rearing nightmare horse with a burning violet mane',13:'a wyvern diving out of the sky',14:'an ancient dragon breathing fire'};
-const WK_D={ratte:'a swarm of ash-covered rats in a burned village',kerze:'a hooded woman carrying a single candle through a dark crypt',knecht:'a skeletal servant in rusted chains',ghul:'a ghoul crawling out of a fresh grave',hexe:'a swamp witch with glowing green eyes under a dead tree',eisen:'an armored gate guard in heavy iron plate before a gothic gate',wolf:'a crypt wolf with glowing eyes among tombstones',egel:'a gaunt priest covered in leeches performing a blood ritual',pest:'a plague doctor messenger walking through a misty dead town',kraehe:'a gallows crow swooping down from a noose',schleier:'a knight wrapped in a ghostly glowing veil',sammler:'a corpse collector pulling a cart of bodies',grab:'a towering stone golem built from gravestones',haendler:'a sinister soul merchant holding glowing orbs',seherin:'a pale seer with white eyes under a full moon',reiter:'a shadow rider on a skeletal horse',gargyl:'a stone gargoyle on a cathedral tower at night',koloss:'a giant swamp colossus of mud and roots',sense:'a reaper of ash with a burning scythe',koenig:'the drowned king, a crowned corpse rising from black water',wyrm:'a colossal dragon against a violet dusk sky',funke:'a single ember igniting in a dark open hand',segen:'a skull blessed with a glowing golden halo on an altar',pfeil:'a cursed arrow trailing violet lightning',opfer:'a ritual dagger dripping blood over a stone altar',tau:'moon dew glowing on silver leaves under a full moon',ruf:'the dead rising from graves at a cemetery gate',sturm:'a storm of burning ash engulfing a ruined tower',ernte:'a soul ripped from a body as streams of red light',verdamm:'lightning striking a doomed tower',brand:'a whole city consumed by an inferno',muenze:'an old gold coin engraved with a skull lying on a grave'};
-const WK_H={p:'the Ash Widow, a veiled sorceress in black robes with embers swirling around her',e:'the Hollow King, an undead king on a throne of bones with a cold blue glowing gaze'};
-const WK_GROUPS=[{n:'Sonnenwacht',k:0},{n:'Aschelande',k:1},{n:'Nordmark',k:2},{n:'Blutmoor',k:3},{n:'Duell',k:4}];
+const WK_GROUPS=[{n:'Sonnenwacht',k:0},{n:'Aschelande',k:1},{n:'Nordmark',k:2},{n:'Blutmoor',k:3}];
 let WK={g:3,busy:'',db:null,assets:null,raw:{}};
-function wkSlots(g){if(g<4)return Object.keys(WK_CR).map(r=>({key:`pk-${r}-${g}`,label:`${r} · ${RN(+r)}`,sub:WK_CR[r]+'. Setting: '+WK_SET[g],thumb:()=>pcard({r:+r,s:g,id:r+'-'+g},92)}));
-  return [...Object.keys(C).map(id=>({key:'d-'+id,label:C[id].n,sub:WK_D[id]+'. Setting: '+WK_DUEL_SET,thumb:()=>cardHTML(id,92,{mini:1})})),
-    ...['p','e'].map(h=>({key:'h-'+h,label:HEROES[h].name,sub:WK_H[h]+'. Setting: '+WK_DUEL_SET,thumb:()=>`<div class="wk-hero"><img src="${ARTMAP['h-'+h]||HART[h]}" alt=""></div>`}))]}
+function wkSlots(g){return Object.keys(WK_CR).map(r=>({key:`pk-${r}-${g}`,label:`${r} · ${RN(+r)}`,sub:WK_CR[r]+'. Setting: '+WK_SET[g],thumb:()=>pcard({r:+r,s:g,id:r+'-'+g},92)}))}
 function wkBatches(g){const sl=wkSlots(g),out=[];for(let i=0;i<sl.length;i+=13)out.push(sl.slice(i,i+13));return out}
 function wkBatchPrompt(b){return`Create ${b.length} separate images, one after another, each a single illustration. Style for all: ${WK_BASE}\n\n`+b.map((x,i)=>`${i+1} ${x.sub}`).join('\n')}
 function wkOne(x){return`${WK_BASE} ${x.sub}`}
 function wkRender(){if(WK.reopen&&!$('#ov').hidden&&document.querySelector('.wk-box'))WK.reopen()}
-function wkFind(key){for(let g=0;g<5;g++){const bs=wkBatches(g);for(let i=0;i<bs.length;i++){const x=bs[i].find(q=>q.key===key);if(x)return{g,bi:i,x,batch:bs[i]}}}return null}
+function wkFind(key){for(let g=0;g<4;g++){const bs=wkBatches(g);for(let i=0;i<bs.length;i++){const x=bs[i].find(q=>q.key===key);if(x)return{g,bi:i,x,batch:bs[i]}}}return null}
 function wkSection(key){const f=wkFind(key);if(!f)return'';const can=!!(WK.assets&&WK.db),has=!!ARTMAP[key],nb=wkBatches(f.g).length,grp=WK_GROUPS[f.g].n+(nb>1?` · Teil ${f.bi+1} von ${nb}`:''),done=f.batch.filter(q=>ARTMAP[q.key]).length;
   return`<div class="wk-box"><div class="wk-bt"><b>Kartenbild</b><span>${has?'eigenes Bild':'gezeichnet'}</span></div>${WK.busy?`<p class="wk-busy">${WK.busy}</p>`:''}
   <div class="wk-row"><button type="button" class="chip" data-wk="copy1" data-k="${key}">Prompt kopieren</button>${can?`<label class="chip wk-file">Eigenes Bild<input type="file" accept="image/*" data-wk="one" data-k="${key}"></label>${has?`<button type="button" class="chip" data-wk="del" data-k="${key}">Zurücksetzen</button>`:''}`:''}</div>
@@ -1918,28 +1591,26 @@ async function wkStore(key,file){const blob=await wkPrep(file);const up=await WK
 async function wkAssign(keys,files){if(!WK.assets||!WK.db)return;const fs=[...files].sort((a,b)=>a.lastModified-b.lastModified||a.name.localeCompare(b.name));
   const n=Math.min(keys.length,fs.length);for(let i=0;i<n;i++){WK.busy=`Speichere Bild ${i+1} von ${n} …`;wkRender();
     try{await wkStore(keys[i],fs[i])}catch(e){WK.busy=`Bild ${i+1} ging nicht: ${e&&e.code==='too_large'?'zu groß':e&&e.code==='quota_or_state'?'Speicher voll':'bitte nochmal versuchen'}.`;wkRender();return}}
-  WK.busy=fs.length>keys.length?`${n} Bilder gespeichert. ${fs.length-keys.length} überzählige ignoriert.`:`${n} Bild${n>1?'er':''} gespeichert.`;wkRender();if(S)render();if(PK)pkRender()}
+  WK.busy=fs.length>keys.length?`${n} Bilder gespeichert. ${fs.length-keys.length} überzählige ignoriert.`:`${n} Bild${n>1?'er':''} gespeichert.`;wkRender();if(PK)pkRender()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-wk]');if(!b||b.tagName==='INPUT')return;const a=b.dataset.wk;
   const f=wkFind(b.dataset.k||'');if(!f)return;
   if(a==='copyb')wkCopy(wkBatchPrompt(f.batch),b);
   else if(a==='copy1')wkCopy(wkOne(f.x),b);
-  else if(a==='del'){const k=b.dataset.k,id=WK.raw[k];(async()=>{try{await WK.db.doc('art/'+k).delete();if(id)await WK.assets.delete(id)}catch(_){}delete ARTMAP[k];delete WK.raw[k];wkRender();if(S)render();if(PK)pkRender()})()}});
+  else if(a==='del'){const k=b.dataset.k,id=WK.raw[k];(async()=>{try{await WK.db.doc('art/'+k).delete();if(id)await WK.assets.delete(id)}catch(_){}delete ARTMAP[k];delete WK.raw[k];wkRender();if(PK)pkRender()})()}});
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.wk||!t.files||!t.files.length)return;
   if(t.dataset.wk==='multi'){const f=wkFind(t.dataset.k);if(f)wkAssign(f.batch.map(x=>x.key),t.files)}else if(t.dataset.wk==='one')wkAssign([t.dataset.k],t.files);t.value=''});
 (async()=>{try{if(!(await waitClaude())){WK.tried=1;return}
   const [db,as]=await Promise.all([window.claude.use('db'),window.claude.use('assets')]);WK.db=db;WK.assets=as;WK.tried=1;
   if(db){db.collection('art').onSnapshot(snap=>{const m={...ARTDEF},raw={};snap.docs.forEach(d=>{const v=d.data();if(v&&v.a){m[d.id]='/_blob/'+v.a;raw[d.id]=v.a}});ARTMAP=m;WK.raw=raw;
-    if(S)render();if(PK&&mode==='poker')pkRender();wkRender()},()=>{})}
+    if(PK&&mode==='poker')pkRender();wkRender()},()=>{})}
   wkRender()}catch(err){console.warn("werkstatt",err);WK.tried=1;wkRender()}})();
 
 /* ---------- Start ---------- */
-try{window.claude?.hot?.snapshot?.(()=>({S:JSON.parse(JSON.stringify(S)),PK:PK?JSON.parse(JSON.stringify({...PK,hi:PK.hi?[...PK.hi]:null})):null,mode}))}catch(_){}
-function start(data){layout();
-  if(data&&data.S&&data.S.p){S=data.S;busy=false;sel=null;render();if(S.over)showEnd();else if(S.turn==='e')aiTurn()}
-  else newGame();
-  if(data&&data.PK&&data.PK.players&&data.PK.players[0]&&data.PK.players[0].aid!==undefined){PK=data.PK;PK.hi=PK.hi?new Set(PK.hi):null;}
-  if(data&&data.mode==='poker'){setMode('poker');if(PK&&!PK.waiting&&(PK.phase==='bet'||PK.phase==='discard'))pkRun()}}
-window.__t={get S(){return S},get PK(){return PK},setMode,pkHuman,strongest:ids=>{const e=strongest(ids.map(i=>CARDBY[i]));return [e.b.cat,e.five.map(c=>c.id).join(" ")]},diff:n=>{let d=0;for(let k=0;k<n;k++){const c=shuffle(FULL.slice()).slice(0,7);if(strongest(c).b.cat<eval5(bestPokerFive(c)).cat)d++}return d/n},sim:n=>{let same=0,tot=0;for(let k=0;k<n;k++){const d=shuffle(FULL.slice());const bd=d.slice(0,5),A=entry([d[5],d[6],...bd]),B=entry([d[7],d[8],...bd]);if(A.score===B.score)continue;const w=battle(A.team,B.team).w;if(w<0)continue;tot++;if((w===0)===(A.score>B.score))same++}return same/tot}};
+try{window.claude?.hot?.snapshot?.(()=>({PK:PK?JSON.parse(JSON.stringify({...PK,hi:PK.hi?[...PK.hi]:null})):null}))}catch(_){}
+function start(data){
+  if(data&&data.PK&&data.PK.players&&data.PK.players[0]&&data.PK.players[0].aid!==undefined){PK=data.PK;PK.hi=PK.hi?new Set(PK.hi):null;pkRender();if(PK.phase==='over')pkOverScreen();else if(!PK.waiting&&(PK.phase==='bet'||PK.phase==='discard'))pkRun()}
+  else pkCampaign()}
+window.__t={get PK(){return PK},pkHuman,over:w=>{PK.phase='over';PK.players[w?1:0].chips=0;pkOverScreen()},strongest:ids=>{const e=strongest(ids.map(i=>CARDBY[i]));return [e.b.cat,e.five.map(c=>c.id).join(" ")]},diff:n=>{let d=0;for(let k=0;k<n;k++){const c=shuffle(FULL.slice()).slice(0,7);if(strongest(c).b.cat<eval5(bestPokerFive(c)).cat)d++}return d/n},sim:n=>{let same=0,tot=0;for(let k=0;k<n;k++){const d=shuffle(FULL.slice());const bd=d.slice(0,5),A=entry([d[5],d[6],...bd]),B=entry([d[7],d[8],...bd]);if(A.score===B.score)continue;const w=battle(A.team,B.team).w;if(w<0)continue;tot++;if((w===0)===(A.score>B.score))same++}return same/tot}};
 const hot=window.claude?.hot;
 try{if(typeof hot?.ready==='function')hot.ready(start);else start(hot?.data??{})}catch(err){start({})}
 })();
