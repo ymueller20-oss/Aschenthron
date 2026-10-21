@@ -17,15 +17,18 @@ Düsteres Karten-Duell: Hold'em mit Kreaturen. Der Showdown ist ein Kampf, und w
 
 ## Gemessenes Gefälle
 
-Heads-up-Freezeout, KI gegen KI (`node sim/matrix.js 40 tag`). Siegquote der höheren Stufe:
+Heads-up-Freezeout, KI gegen KI, je 40 bis 60 Duelle (`node sim/matrix.js 40 tag`). Siegquote der höheren Stufe gegen die niedrigere:
 
-| | Stufe 1 Zecher | 2 Rabauke | 3 Vorsichtige | 4 Stetiger | 5 Meuchlerin |
+| | 1 Zecher | 2 Rabauke | 3 Vorsichtige | 4 Stetiger | 5 Meuchlerin |
 |---|---|---|---|---|---|
 | **2** Rabauke | 65 % | | | | |
 | **3** Vorsichtige | 90 % | 70 % | | | |
 | **4** Stetiger | 100 % | 100 % | 95 % | | |
-| **5** Meuchlerin | 100 % | 98 % | 85 % | 70 % | |
-| **6** Hohler König | 98 % | 98 % | 93 % | 75 % | siehe unten |
+| **5** Meuchlerin | ~100 % | ~97 % | ~85 % | 63 % | |
+| **6** Hohler König | 98 % | 98 % | 93 % | 77 % | ~50 % |
+
+Stufe 1 ist der Anfänger-Proxy: ruft fast alles, bewertet nur Pokerkombos, stellt nach Stärke auf. Er gewinnt gegen Stufe 4 und höher so gut wie nie (0 von 40) und gegen Stufe 6 in 1 von 40 Duellen.
+Den größten Sprung bringt die verdeckte Aufstellung (Stufe 3 → 4): Wer die Reihenfolge der Bahnen nutzt, schlägt einen Spieler, der immer nach Stärke aufstellt, fast immer.
 
 Balance-Werte der Kämpfe stehen im Objekt `K` (in `index.html` und `engine.js` gleich halten).
 Lokal gibt es kein Speicher-Backend des Artifacts; Fortschritt wird über localStorage gespeichert.
